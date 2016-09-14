@@ -6,6 +6,7 @@
 
 package fit5042.repository.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,14 @@ public class ServiceUse {
     // Government worker linked to the service/transaction
     private User governmentWorker;
 
+    public ServiceUse(int useId, User publicUser, Date useDate, User governmentWorker){
+        this.useId = useId;
+        this.publicUser = publicUser;
+        this.useDate = useDate;
+        this.governmentWorker = governmentWorker;
+        this.serviceList = new ArrayList<>();
+    }
+    
     public int getUseId()
     {
         return useId;

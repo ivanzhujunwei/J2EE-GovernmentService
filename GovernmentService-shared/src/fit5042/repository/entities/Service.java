@@ -17,6 +17,14 @@ public class Service {
     private String type;
     private String thumbnail;
     private String description;
+    
+    public Service(int no, String name, String type, String thumbnail, String description){
+        this.no = no;
+        this.name = name;
+        this.type = type;
+        this.thumbnail = thumbnail;
+        this.description = description;
+    }
 
     public int getNo()
     {
