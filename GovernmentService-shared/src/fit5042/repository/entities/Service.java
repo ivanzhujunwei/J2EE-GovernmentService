@@ -6,11 +6,13 @@
 
 package fit5042.repository.entities;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-public class Service {
+public class Service implements Serializable{
     private int no;
     private String name;
     // TODO: what kind of type are not clearly clarified yet

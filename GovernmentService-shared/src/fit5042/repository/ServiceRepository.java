@@ -6,6 +6,7 @@
 package fit5042.repository;
 
 import fit5042.repository.entities.Service;
+import java.util.List;
 import javax.ejb.Remote;
 /**
  *
@@ -19,19 +20,25 @@ public interface ServiceRepository
      * @param name service name
      * @return Service
      */
-    public Service searchByName(String name);
+    public Service searchServiceByName(String name);
     
     /***
      * Search service by service no
      * @param no service no
      * @return Service
      */
-    public Service searchByNo(int no);
+    public Service searchServiceByNo(int no);
     
     /***
      * Search service by service type
      * @param type
      * @return 
      */
-    public Service searchByType(String type);
+    public Service searchServiceByType(String type);
+    
+    /***
+     * Get all service
+     * @return Service list
+     */
+    public List<Service> getAllServices();
 }
