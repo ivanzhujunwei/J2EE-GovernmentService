@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        <ui:composition template="../layout/workerTemplete.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <div class="container"> 
+                        <div class="row">
+                            <h3>Services Manage 
+                                <h:commandLink class="btn btn-success pull-right " value="Add a service" action="#{serviceManagedBean.getAddingService()}">
+                                </h:commandLink>
+                            </h3>
+                        </div>
+                        <div class="row service-attribute">
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th width="10%"> NO </th>
+                                    <th width="45%"> Name </th>
+                                    <th width="25%"> Type </th>
+                                    <th width="20%"> Action </th>
+                                </tr>
+                                <!-- For each service in service list... --> 
+                                <ui:repeat id="Myrepeat" value="#{serviceManagedBean.serviceList}" var="service" varStatus="status"> 
+                                    <tr> 
+                                        <td> <h:outputText value="#{service.service_no}" id="serviceNO" /> </td>
+                                        <td> <h:outputText id="name" value="#{service.name}"  /></td>
+                                        <td> <h:outputText id="type" value="#{service.type}"  /></td>
+                                        <td> <h:outputText id="action" value=""  />&nbsp;&nbsp;
+                                            <h:commandLink action="#{serviceManagedBean.viewServiceByWorker(service)}">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </h:commandLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <h:commandLink action="#{serviceManagedBean.getUpdatingService(service)}">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </h:commandLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <h:commandLink action="#{serviceManagedBean.deleteService(service)}"
+                                                           onclick="if (!confirm('Really delete this service?')) {
+                                                                       return false;
+                                                                   };
+                                                                   return true;">
+                                                <i class="fa fa-remove" aria-hidden="true"></i>
+                                            </h:commandLink>
+                                        </td>
+                                    </tr> 
+                                </ui:repeat> 
+                            </table>
+                        </div>
+                    </div> 
+                </h:form>
+            </ui:define> 
+            <!--TODO: how to use js functions?
+          <script type="text/javascript">
+                function confirmDelete() {
+                    alert(1);
+                    if (!confirm('Really delete this?')) {
+                        return false;
+                    };
+                    return true;
+                }
+            </script>-->
+        </ui:composition>
+
+    </h:body>
+</html>
+

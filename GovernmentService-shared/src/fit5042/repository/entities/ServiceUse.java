@@ -3,59 +3,88 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fit5042.repository.entities;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
- * 
- * @author Junwei Zhu
+ * *
+ *
+ * @author Ivan Zhu <ivanzhujunwei@gmail.com>
  */
-public class ServiceUse {
-
+@Entity
+@NamedQueries({
+    })
+@SequenceGenerator(name="SEQ_SERVICEUSE", initialValue=10, allocationSize=1)
+public class ServiceUse implements Serializable
+{
     // ID number of Service Use
+    @Id
+    @Column(name = "useId")
+    @GeneratedValue(strategy= GenerationType.IDENTITY, generator="SEQ_SERVICEUSE")
     private int useId;
     // Member of public using the service
-    private User publicUser;
+    @JoinColumn(name = "used_by", nullable = false)
+    private PublicUser publicUser;
     // Date when the service is used
-    private Date useDate;
-    // The services that the service use include
-    private List<Service> serviceList;
+    @Column(name = "usedate")
+    private String useDate;
+    // Used service
+    @ManyToOne
+    @JoinColumn(name = "usedService", nullable = false)
+    private Service usedService;
     // Government worker linked to the service/transaction
-    private User governmentWorker;
+    @ManyToOne
+    @JoinColumn(name = "managed_by", nullable = false)
+    private Worker governmentWorker;
+    @Column (name = "is_finished")
+    private boolean isFinished;
 
-    public ServiceUse(int useId, User publicUser, Date useDate, User governmentWorker){
+    public ServiceUse()
+    {
+    }
+
+    public ServiceUse(int useId, PublicUser publicUser, String useDate, Worker governmentWorker)
+    {
         this.useId = useId;
         this.publicUser = publicUser;
         this.useDate = useDate;
         this.governmentWorker = governmentWorker;
-        this.serviceList = new ArrayList<>();
+        this.usedService = new Service();
+        isFinished = false;
     }
-    
+
     public int getUseId()
     {
         return useId;
     }
 
-    public User getPublicUser()
+    public PublicUser getPublicUser()
     {
         return publicUser;
     }
 
-    public Date getUseDate()
+    public String getUseDate()
     {
         return useDate;
     }
 
-    public List<Service> getServiceList()
+    public Service getUsedService()
     {
-        return serviceList;
+        return usedService;
     }
 
-    public User getGovernmentWorker()
+    public Worker getGovernmentWorker()
     {
         return governmentWorker;
     }
@@ -65,26 +94,34 @@ public class ServiceUse {
         this.useId = useId;
     }
 
-    public void setPublicUser(User publicUser)
+    public void setPublicUser(PublicUser publicUser)
     {
         this.publicUser = publicUser;
     }
 
-    public void setUseDate(Date useDate)
+    public void setUseDate(String useDate)
     {
         this.useDate = useDate;
     }
 
-    public void setServiceList(List<Service> serviceList)
+    public void setUsedService(Service usedService)
     {
-        this.serviceList = serviceList;
+        this.usedService = usedService;
     }
 
-    public void setGovernmentWorker(User governmentWorker)
+    public void setGovernmentWorker(Worker governmentWorker)
     {
         this.governmentWorker = governmentWorker;
     }
-    
-    
-    
+
+    public boolean isIsFinished()
+    {
+        return isFinished;
+    }
+
+    public void setIsFinished(boolean isFinished)
+    {
+        this.isFinished = isFinished;
+    }
+
 }

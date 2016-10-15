@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <!--https://www.tutorialspoint.com/jsf/jsf_templates_tag.htm/-->
+    <!--https://www.mkyong.com/jsf2/jsf-2-templating-with-facelets-example/-->
+    
+    <h:head>
+        <h:outputStylesheet name="css/bootstrap.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/style.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/custom.css"></h:outputStylesheet>
+        <h:outputStylesheet name="font-awesome/css/font-awesome.css"></h:outputStylesheet>
+<!--        <h:outputScript name="js/jquery-1.11.1.js"></h:outputScript>
+        <h:outputScript name="js/bootstrap.js"></h:outputScript>
+        <h:outputScript name="js/bootstrap-confirmation.js"></h:outputScript>-->
+    </h:head>
+   <h:body> 
+      <div>
+         <ui:insert name="header" >
+            <ui:include src="workerHeader.xhtml" />
+         </ui:insert> 
+      </div>
+      <br/>
+      <div>
+         <ui:insert name="content" >
+            <ui:include src="contents.xhtml" />
+         </ui:insert>    
+      </div>
+      <br/>
+      <div>
+         <ui:insert name="footer" >
+            <ui:include src="footer.xhtml" />
+         </ui:insert>
+      </div>
+   </h:body>
+</html>

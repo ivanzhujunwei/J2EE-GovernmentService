@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <body>
+        <ui:composition> 
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="container">
+                    <div class="row">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex2-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">Government Service&nbsp;&nbsp;
+                            </a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <h:form>
+                            <div class="collapse navbar-collapse navbar-ex2-collapse">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <h:commandLink action="worker_publicUsers">User manage</h:commandLink>
+                                    </li>
+                                    <li>
+                                        <h:commandLink action="worker_services">Service manage</h:commandLink>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="#">Log in</a></li>
+                                </ul>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </nav>
+        </ui:composition>	
+    </body>
+</html>
+

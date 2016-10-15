@@ -3,49 +3,116 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fit5042.repository;
 
 import fit5042.repository.entities.Service;
+import fit5042.repository.entities.ServiceType;
+import fit5042.utility.Validate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
- * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ *
+ * @author Ivan Zhu 
  */
 @Stateless
-public class JPAServicePRepositoryImpl implements ServiceRepository{
-    
+public class JPAServicePRepositoryImpl implements ServiceRepository
+{
+
+    @PersistenceContext(unitName = "GovernmentService-ejbPU")
+    private EntityManager entityManager;
+
+    @Override
+    public void addService(Service service)
+    {
+        entityManager.persist(service);
+    }
+
+    @Override
+    public void deleteService(Service service)
+    {
+        // Need to get the service from entityManager first
+        Service s = entityManager.getReference(Service.class, service.getService_no());
+        // After finding the service, then it can be deleted
+        entityManager.remove(s);
+    }
+
+    @Override
+    public List<ServiceType> getAllServiceType()
+    {
+         // JPQL
+        List<ServiceType> types = entityManager.createNamedQuery(ServiceType.GET_ALL_SERVICE_TYPE).getResultList();
+        return types;
+    }
 
     @Override
     public List<Service> getAllServices()
     {
-        List<Service> services = new ArrayList<>();
-        Service s0 = new Service(0, "s1", "t1", "thu1", "desc1");
-        Service s1 = new Service(1, "s2", "t2", "thu2", "desc2");
-        services.add(s0);
-        services.add(s1);
+        // JPQL
+        List<Service> services = entityManager.createNamedQuery(Service.GET_ALL_QUERY_NAME).getResultList();
         return services;
     }
 
     @Override
-    public Service searchServiceByName(String name)
+    public List<Service> searchServiceByName(String name)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Criteria API
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Service> query = builder.createQuery(Service.class);
+        Root<Service> s = query.from(Service.class);
+        query.select(s).where(builder.like(s.get("name").as(String.class), "%" + name + "%"));
+        return entityManager.createQuery(query).getResultList();
     }
 
     @Override
     public Service searchServiceByNo(int no)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Service service = entityManager.find(Service.class, no);
+        return service;
     }
 
     @Override
-    public Service searchServiceByType(String type)
+    public List<Service> searchServiceByType(String type)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Service> query = builder.createQuery(Service.class);
+        Root<Service> s = query.from(Service.class);
+        query.select(s).where(builder.like(s.get("type").as(String.class), "%" + type + "%"));
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public List<Service> searchServiceCombined(String no, String name, String type, String description)
+    {
+        List<Service> services = new ArrayList<>();
+        // Control service no is not null
+        if (!Validate.isEmpty(no)){
+            int service_no = Integer.parseInt(no);
+            Service s =  searchServiceByNo(service_no);
+            if(s != null){
+                services.add(s);
+            }
+        }else{
+            Query q = entityManager.createNamedQuery(Service.GET_SEARCHED_QUERY);
+            q.setParameter("service_name", "%"+name+"%");
+            q.setParameter("service_type", "%"+type+"%");
+            q.setParameter("service_description", "%"+description+"%");
+            services = q.getResultList();
+        }
+        return services;
+    }
+
+    @Override
+    public void updateService(Service service)
+    {
+        entityManager.merge(service);
     }
 
 }

@@ -7,32 +7,62 @@
 package fit5042.repository.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  * 
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author Junwei Zhu
  */
+@Entity
+@NamedQueries({@NamedQuery(name = Service.GET_ALL_QUERY_NAME, query = "SELECT s FROM Service s"),
+@NamedQuery(name = Service.GET_SEARCHED_QUERY, query = "SELECT s FROM Service s "
+        + "WHERE s.name LIKE :service_name "
+        + "AND s.type LIKE :service_type "
+        + "AND s.description LIKE :service_description ")})
+@SequenceGenerator(name="SEQ_SERVICE", initialValue=10, allocationSize=1)
 public class Service implements Serializable{
-    private int no;
-    private String name;
-    // TODO: what kind of type are not clearly clarified yet
-    private String type;
-    private String thumbnail;
-    private String description;
+    
+    public static final String GET_ALL_QUERY_NAME = "Service.getAllServices";
+    public static final String GET_SEARCHED_QUERY = "Service.getCombinedSearchService";
+    @Column(name = "service_no")
+//    @Id @GeneratedValue(strategy= GenerationType.IDENTITY, generator="SEQ_SERVICE")
+    @Id @GeneratedValue(strategy= GenerationType.AUTO, generator="SEQ_SERVICE")
+    protected int service_no;
+    @Column(name = "name")
+    protected String name;
+    @Column(name = "type")
+    protected String type;
+    @Column(name = "thumbnail")
+    protected String thumbnail;
+    @Column(name = "description")
+    protected String description;
+    @OneToMany
+    private List<ServiceUse> serviceUseList;
+
+    public Service()
+    {
+        serviceUseList = new ArrayList<>();
+    }
     
     public Service(int no, String name, String type, String thumbnail, String description){
-        this.no = no;
+        this.service_no = no;
         this.name = name;
         this.type = type;
         this.thumbnail = thumbnail;
         this.description = description;
+        serviceUseList = new ArrayList<>();
     }
-
-    public int getNo()
-    {
-        return no;
-    }
-
+    
     public String getName()
     {
         return name;
@@ -53,9 +83,14 @@ public class Service implements Serializable{
         return description;
     }
 
-    public void setNo(int no)
+    public int getService_no()
     {
-        this.no = no;
+        return service_no;
+    }
+
+    public void setService_no(int service_no)
+    {
+        this.service_no = service_no;
     }
 
     public void setName(String name)
@@ -76,6 +111,16 @@ public class Service implements Serializable{
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public List<ServiceUse> getServiceUseList()
+    {
+        return serviceUseList;
+    }
+
+    public void setServiceUseList(List<ServiceUse> serviceUseList)
+    {
+        this.serviceUseList = serviceUseList;
     }
     
     

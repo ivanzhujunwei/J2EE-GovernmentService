@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="layout/loginTemplete.xhtml">
+            <ui:define name="content">
+                <div class="container"> 
+                    <div class="dialog login-dialog">
+                        <div class="panel panel-default">
+                            <p class="panel-heading no-collapse"> 
+                                Sign In&nbsp; 
+                                <h:outputText id="loginResult" value="#{publicUserBean.loginResponse}" />
+                            </p>
+                            <div class="panel-body">
+                                <h:form>
+                                    <div class="form-group">
+                                        <label>Username</label> 
+                                        <h:inputText class="form-control span12" value="#{publicUserBean.userName}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <h:inputText id="userName" class="form-control" value="#{publicUserBean.password}"/>
+                                    </div>
+                                    <!--<h:commandButton value="Sign In" class="btn btn-success pull-right" action="#{publicUserBean.login()}">-->
+                                        <h:commandButton value="Sign In" class="btn btn-success pull-right"> 
+                                            <f:ajax execute="@form" render="loginResult"  listener="#{publicUserBean.login()}"/>
+                                    </h:commandButton>
+                                    <div class="clearfix"></div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define> 
+
+        </ui:composition>
+
+    </h:body>
+</html>

@@ -6,11 +6,12 @@
 package fit5042.repository;
 
 import fit5042.repository.entities.Service;
+import fit5042.repository.entities.ServiceType;
 import java.util.List;
 import javax.ejb.Remote;
 /**
  *
- * @author Sammy Guergachi <sguergachi at gmail.com>
+ * @author Ivan Zhu <ivanzhujunwei@gmail.com>
  */
 @Remote
 public interface ServiceRepository
@@ -18,9 +19,9 @@ public interface ServiceRepository
     /***
      * Search Service by service name
      * @param name service name
-     * @return Service
+     * @return Service List
      */
-    public Service searchServiceByName(String name);
+    public List<Service> searchServiceByName(String name);
     
     /***
      * Search service by service no
@@ -30,15 +31,51 @@ public interface ServiceRepository
     public Service searchServiceByNo(int no);
     
     /***
+     * Search service combined by name, no, type, description
+     * @param no Service NO
+     * @param name Service name
+     * @param type Service type
+     * @param description Service description
+     * @return Service list
+     */
+    public List<Service> searchServiceCombined(String no, String name, String type, String description);
+    
+    /***
      * Search service by service type
      * @param type
-     * @return 
+     * @return service list 
      */
-    public Service searchServiceByType(String type);
+    public List<Service> searchServiceByType(String type);
     
     /***
      * Get all service
      * @return Service list
      */
     public List<Service> getAllServices();
+    
+    /***
+     * Update a service
+     * @param service the service which needs to be updated
+     */
+    public void updateService(Service service);
+    
+    /***
+     * Delete a service
+     * @param service the service which needs to be deleted
+     */
+    public void deleteService(Service service);
+    
+    /***
+     * Add a service
+     * @param service 
+     */
+    public void addService(Service service);
+    
+    /***
+     * Get all service types
+     * @return Service types
+     */
+    public List<ServiceType> getAllServiceType();
+    
+    
 }
