@@ -5,12 +5,19 @@
  */
 package fit5042.repository;
 
+import fit5042.repository.entities.PublicUser;
+import fit5042.repository.entities.Service;
 import fit5042.repository.entities.ServiceUse;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -24,6 +31,37 @@ public class JPAServiceUseRepositoryImpl implements ServiceUseRepository
     private EntityManager entityManager;
     
     public static List<ServiceUse> serviceUseList;
+
+    @Override
+    public ServiceUse getServiceUse(int user_id, int service_id)
+    {
+        // JPQL
+        Query q = entityManager.createNamedQuery(ServiceUse.GET_UNCOMPLETED_SERVICEUSE);
+        q.setParameter("user_id", entityManager.find(PublicUser.class, user_id));
+        q.setParameter("service_no", entityManager.find(Service.class, service_id));
+        List<ServiceUse> sus = q.getResultList();
+        if (sus.size() == 0) {
+            return null;
+        }
+        return sus.get(0);
+    }
+
+    @Override
+    public void updateServiceUse(ServiceUse su)
+    {
+        entityManager.merge(su);
+    }
+
+    @Override
+    public List<ServiceUse> getServiceUseByUserNO(int su_id)
+    {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ServiceUse> query = builder.createQuery(ServiceUse.class);
+        Root<ServiceUse> s = query.from(ServiceUse.class);
+//        query.select(s).where(builder.like(s.get("type").as(String.class), "%" + type + "%"));
+        query.select(s).where(builder.equal(s.get("used_by").as(String.class), su_id));
+        return entityManager.createQuery(query).getResultList();
+    }
     
     @PostConstruct
     public void init(){

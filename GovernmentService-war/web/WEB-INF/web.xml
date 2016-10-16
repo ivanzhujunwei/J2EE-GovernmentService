@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/includes/index.xhtml</welcome-file>
+        <welcome-file>faces/includes/startPage.xhtml</welcome-file>
     </welcome-file-list>
     
     <!-- append the security code -->
@@ -29,6 +29,7 @@
             <web-resource-name>WebResource</web-resource-name>
             <description/>
             <url-pattern>/faces/includes/*</url-pattern>
+            <!--<url-pattern>/faces/includes/worker/*</url-pattern>-->
         </web-resource-collection>
         <auth-constraint>
             <description>Administrator</description>
@@ -42,6 +43,7 @@
             <web-resource-name>WebResource</web-resource-name>
             <description/>
             <url-pattern>/faces/includes/*</url-pattern>
+            <!--<url-pattern>/faces/includes/publicUser/*</url-pattern>-->
         </web-resource-collection>
         <auth-constraint>
             <description>PublicUser</description>

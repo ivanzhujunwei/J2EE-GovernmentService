@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -24,10 +25,15 @@ import javax.persistence.SequenceGenerator;
  */
 @Entity
 @NamedQueries({
-    })
+    @NamedQuery(name = ServiceUse.GET_UNCOMPLETED_SERVICEUSE, query = "SELECT s FROM ServiceUse s "
+            + "WHERE s.publicUser = :user_id "
+            + "AND s.usedService = :service_no "
+            + "AND s.isFinished = 0 ")})
 @SequenceGenerator(name="SEQ_SERVICEUSE", initialValue=10, allocationSize=1)
 public class ServiceUse implements Serializable
 {
+    public static final String GET_UNCOMPLETED_SERVICEUSE = "ServiceUse.getUncompletedServiceUse";
+    
     // ID number of Service Use
     @Id
     @Column(name = "useId")

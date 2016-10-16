@@ -10,7 +10,7 @@
             <ui:define name="content">
                 <!--<h:link value="Back To Home" outcome="service_detail" />-->
                 <div class="container"> 
-                    <div class="row">
+                    <!--<div class="row">-->
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <h:form id="searchForm">
                                 <div class="col-lg-12 col-md-12 smart-margin-bottom-30 findAService">
@@ -66,7 +66,7 @@
                                             <td style="vertical-align: middle">  <h:outputText value="#{service.service_no}" id="serviceNO" />  </td>
                                             <td style="vertical-align: middle">  
                                                 <h:graphicImage  value="/resources/images/serviceThumbnail/#{service.thumbnail}" 
-                                                           class="img-fluid pull-xs-right" style="height: 100px;width:140px">
+                                                           class="img-fluid pull-xs-right" style="height: 50px;width:70px">
                                                 </h:graphicImage> 
                                             </td>
                                             <td style="vertical-align: middle"> <h:outputText value="#{service.name}"  /></td>
@@ -83,7 +83,7 @@
                         </div>
                         <!--END  //Service table with NO and name-->
                     </div>
-                </div> 
+                <!--</div>--> 
             </ui:define> 
 
         </ui:composition>

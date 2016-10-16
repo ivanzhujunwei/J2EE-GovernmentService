@@ -36,6 +36,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 /**
@@ -281,6 +282,24 @@ public class ServiceManagedBean implements Serializable
         serviceRepository.deleteService(service);
         return "worker_services";
     }
+    
+//    public void isUsedService(){
+//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        String username = request.getRemoteUser();
+//        PublicUser pu = publicUserRepository.searchPublicUserByEmail(username);
+//        // Get the service use from database
+//        int user_id = pu.getId();
+//        int service_id = this.service.getService_no();
+//        // Get the curren service's use list 
+//        ServiceUse uncompletedServiceUse = serviceUseRepository.getServiceUse(user_id, service_id);
+//        // If the public user has alreay used the service
+//        if (uncompletedServiceUse != null ){
+//            this.isServiceUsed = "You are currently using the service.";
+//        }else{
+//            this.isServiceUsed = "";
+//        }
+//        
+//    }
 
     /**
      * *
@@ -288,31 +307,21 @@ public class ServiceManagedBean implements Serializable
      *
      * @return Service detail page
      */
-    public String useService()
+    public void useService()
     {
         // Simulate a public user
-        PublicUser pu = new PublicUser();
-        pu.setId(1);
-        // Get the curren service's use list 
-        // TODO: pu.getServiceUse() needs to be initialised firstly
-        for (ServiceUse usedServices : pu.getServiceUse()) {
-            if (usedServices.getUsedService().getService_no() == this.service.getService_no()) {
-                return "You are already using the service.";
-            }
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String username = request.getRemoteUser();
+        PublicUser pu = publicUserRepository.searchPublicUserByEmail(username);
+        // Get the service use from database
+        if (getUnCompletedServiceUse() != null){
+            System.out.println("Error: the service is being used.");
+            return;
         }
+        // If the public user hasn't used the service
+        // Add the serviceuse
         ServiceUse su = new ServiceUse();
-        pu.getServiceUse().add(su);
-        // Get all service uses which are not done
-        // When the page is load at first
-        if (Validate.isEmpty(this.isServiceUsed)) {
-            setIsServiceUsed("1");
-            return "";
-        }
-        // If the public apply more than once, stop processing
-//        if (this.isServiceUsed.equals("2")) {
-//            return ".";
-//        }
-//        setIsServiceUsed("2");
+//        pu.getServiceUse().add(su);
         // Create a new serviceUse
         su.setUsedService(this.service);
         su.setIsFinished(false);
@@ -327,9 +336,6 @@ public class ServiceManagedBean implements Serializable
         su.setUseDate(dateFormat.format(date));
         // Add the serviceUse
         serviceUseRepository.addServiceUse(su);
-        // TODO 
-        // ??? every time another page request the method, the previous response is still in the page
-        return "Apply successfully";
     }
 
     /**
@@ -428,6 +434,36 @@ public class ServiceManagedBean implements Serializable
         return serviceRepository.searchServiceByType(type);
     }
 
+    /***
+     * Get the is service in used information
+     * @return Display information in use service button
+     */
+    public String getIsServiceUsed()
+    {
+        // If the public user has alreay used the service
+        if (getUnCompletedServiceUse() != null ){
+            return "Currently in use";
+        }else{
+            return  "Apply to use";
+        }
+    }
+    
+    /***
+     * Get the service use by service_id and publicUser_id
+     * @return Service use which is not completed
+     */
+    public ServiceUse getUnCompletedServiceUse(){
+         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String username = request.getRemoteUser();
+        PublicUser pu = publicUserRepository.searchPublicUserByEmail(username);
+        // Get the service use from database
+        int user_id = pu.getId();
+        int service_id = this.service.getService_no();
+        // Get the curren service's use list 
+        return serviceUseRepository.getServiceUse(user_id, service_id);
+        
+    }
+    
     public Service getService()
     {
         return service;
@@ -448,10 +484,6 @@ public class ServiceManagedBean implements Serializable
         this.thumbnail = thumbnail;
     }
 
-    public String getIsServiceUsed()
-    {
-        return isServiceUsed;
-    }
 
     public void setIsServiceUsed(String isServiceUsed)
     {

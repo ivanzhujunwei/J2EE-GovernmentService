@@ -3,11 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-          
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
-        <ui:composition template="/layout/workerTemplete.xhtml">
+        <ui:composition template="/layout/templete.xhtml">
             <ui:define name="content">
+                <script>
+                    $(document).ready(function () {
+                        var name = $("#service_detail\\:applyToUse").val();
+                        if (name==='Currently in use') {
+                            $('#service_detail\\:applyToUse').attr("disabled", true);
+                        }
+                    });
+                </script>
                 <!--<h:link value="Back To Home" outcome="service_detail" />-->
                 <div class="container"> 
                     <!-- /.row -->
@@ -15,7 +22,7 @@
                         <div class="panel-heading">
                             <a href="index.xhtml">Find a service</a> / Service detail</div>
                         <div class="panel-body">
-                            <h:form>
+                            <h:form id="service_detail">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-3">
                                         <img src="../../resources/images/serviceThumbnail/#{service.thumbnail}" class="img-fluid pull-xs-right" style="height: 200px;width:280px" alt="..."></img>
@@ -33,7 +40,7 @@
                                                 <label>#{serviceManagedBean.service.name}</label>
                                             </div>
                                         </div>
-                                        <div class="form-group col-lg-12 col-md-12  col-sm-12h5">
+                                        <div class="form-group col-lg-12 col-md-12  col-sm-12 h5">
                                             <label class="col-lg-2 service-attribute-label">Service type:</label>
                                             <div class="col-lg-6 service-view-attribute">
                                                 <label>#{serviceManagedBean.service.type}</label>
@@ -43,13 +50,13 @@
                                         <div class="form-group col-lg-12 col-md-12 col-sm-12 h5">
                                             <div class="form-group col-lg-5 col-md-5 service-view-attribute service-apply">
                                                 <h:commandButton id="applyToUse" class="btn btn-block btn-sm btn-success" 
-                                                                 action="#{serviceManagedBean.useService()}" value="Apply to use">
+                                                                 action="#{serviceManagedBean.useService()}" value="#{serviceManagedBean.isServiceUsed}">
                                                     <f:ajax  render="useResponse" />
                                                 </h:commandButton>
                                             </div>
-                                            <div class="form-group col-lg-5 col-md-5 service-view-attribute service-apply">
-                                                <h:outputText id="useResponse" value="#{serviceManagedBean.isServiceUsed}"></h:outputText>
-                                            </div>
+<!--                                            <div class="form-group col-lg-5 col-md-5 service-view-attribute service-apply">
+                                                <h:outputText id="useResponse" value="#"></h:outputText>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -58,14 +65,18 @@
                                         #{service.description}
                                     </div>
                                 </div>
-                        </h:form>
-                    </div>
-                </div> 
+                            </h:form>
+                        </div>
+                    </div> 
                 </div>
+            <script>
+                 $('#service_detail\\:applyToUse').click(function(){
+                        $(this).attr('disabled',true);
+                        $(this).val('Apply successfully');
+                    });
+            </script>
             </ui:define> 
-
         </ui:composition>
-
     </h:body>
 </html>
 

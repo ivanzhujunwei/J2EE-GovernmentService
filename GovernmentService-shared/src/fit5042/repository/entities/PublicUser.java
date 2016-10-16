@@ -33,22 +33,22 @@ public class PublicUser extends SystemUser
      * *
      * The ServiceUses which have been used by the public user
      */
-    @OneToMany
-    private List<ServiceUse> serviceUse;
-
-    public PublicUser()
-    {
-        serviceUse = new ArrayList<>();
-    }
-
-    public List<ServiceUse> getServiceUse()
-    {
-        return serviceUse;
-    }
-
-    public void setServiceUse(List<ServiceUse> serviceUse)
-    {
-        this.serviceUse = serviceUse;
-    }
+//    @OneToMany
+//    private List<ServiceUse> serviceUse;
+//
+//    public PublicUser()
+//    {
+//        serviceUse = new ArrayList<>();
+//    }
+//
+//    public List<ServiceUse> getServiceUse()
+//    {
+//        return serviceUse;
+//    }
+//
+//    public void setServiceUse(List<ServiceUse> serviceUse)
+//    {
+//        this.serviceUse = serviceUse;
+//    }
 
 }

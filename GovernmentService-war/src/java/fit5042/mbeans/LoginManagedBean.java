@@ -35,7 +35,6 @@ public class LoginManagedBean
     {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String username = request.getRemoteUser();
-        System.out.println("||||||||||");
         PublicUser user = publicUserRepository.searchPublicUserByEmail(username);
         if (user != null){
             return "publicUser/index.xhtml";
@@ -46,4 +45,5 @@ public class LoginManagedBean
         }
         return "error";
     }
+    
 }

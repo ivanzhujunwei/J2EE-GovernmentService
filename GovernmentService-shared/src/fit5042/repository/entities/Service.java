@@ -24,11 +24,12 @@ import javax.persistence.SequenceGenerator;
  * @author Junwei Zhu
  */
 @Entity
-@NamedQueries({@NamedQuery(name = Service.GET_ALL_QUERY_NAME, query = "SELECT s FROM Service s"),
-@NamedQuery(name = Service.GET_SEARCHED_QUERY, query = "SELECT s FROM Service s "
-        + "WHERE s.name LIKE :service_name "
-        + "AND s.type LIKE :service_type "
-        + "AND s.description LIKE :service_description ")})
+@NamedQueries({
+    @NamedQuery(name = Service.GET_ALL_QUERY_NAME, query = "SELECT s FROM Service s"),
+    @NamedQuery(name = Service.GET_SEARCHED_QUERY, query = "SELECT s FROM Service s "
+            + "WHERE s.name LIKE :service_name "
+            + "AND s.type LIKE :service_type "
+            + "AND s.description LIKE :service_description ")})
 @SequenceGenerator(name="SEQ_SERVICE", initialValue=10, allocationSize=1)
 public class Service implements Serializable{
     
