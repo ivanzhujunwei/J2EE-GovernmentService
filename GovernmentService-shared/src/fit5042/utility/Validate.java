@@ -28,4 +28,13 @@ public class Validate
         return false;
     }
     
+    /***
+     * Validate if the string is digit or not
+     * @param str
+     * @return  true if the string is digit
+     */
+    public static Boolean isDigit(String str){
+        return str.matches("-?\\d+");
+    }
+    
 }

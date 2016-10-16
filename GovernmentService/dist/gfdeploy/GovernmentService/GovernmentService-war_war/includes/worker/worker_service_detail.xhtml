@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      >
+    <h:body>
+        <ui:composition template="/layout/workerTemplete.xhtml">
+            <ui:define name="content">
+                <!--<h:link value="Back To Home" outcome="service_detail" />-->
+                <div class="container"> 
+                    <!-- /.row -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="worker_services.xhtml">Services Manage</a> / View Service </div>
+                        <div class="panel-body">
+                            <h:form>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3">
+                                        <img src="../resources/images/serviceThumbnail/#{service.thumbnail}" class="img-fluid pull-xs-right" style="height: 200px;width:280px" alt="..."></img>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 service-attribute">
+                                        <div class="form-group col-lg-12 col-md-12 h5">
+                                            <label class="col-lg-2 service-attribute-label">Service NO.:</label>
+                                            <div class="col-lg-6 service-view-attribute">
+                                                <label>#{serviceManagedBean.service.service_no}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-12 col-md-12 h5">
+                                            <label class="col-lg-2 service-attribute-label">Service name:</label>
+                                            <div class="col-lg-6 service-view-attribute">
+                                                <label>#{serviceManagedBean.service.name}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-lg-12 col-md-12 h5">
+                                            <label class="col-lg-2 service-attribute-label">Service type:</label>
+                                            <div class="col-lg-6 service-view-attribute">
+                                                <label>#{serviceManagedBean.service.type}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--                                <div class="col-lg-9 col-md-9 col-sm-9 service-attribute">
+                                                                        <div class=" col-lg-12 col-md-12 h5">Service NO.:&nbsp;&nbsp;#{service.service_no}</div>
+                                                                        <div class=" col-lg-12 col-md-12 h5">Service name:&nbsp;&nbsp; #{service.name}</div>
+                                                                        <div class=" col-lg-12 col-md-12 h5">Service type:&nbsp;&nbsp; #{service.type}</div>
+                                                                        <div class=" col-lg-12 col-md-12 smart-margin-bottom-30">
+                                                                        </div>
+                                                                    </div>-->
+                                </div>
+                                <div class="row service-attribute">
+                                    <div class="col-lg-9 col-md-9 col-sm-9">
+                                        #{service.description}
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div> 
+                </div>
+            </ui:define> 
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

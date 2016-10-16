@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="/layout/workerTemplete.xhtml">
+            <ui:define name="content">
+                <div class="container"> 
+                    <!-- /.row -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="worker_publicUsers.xhtml">User Manage</a> / View user detail </div>
+                        <div class="panel-body">
+                            <h:form enctype="multipart/form-data">
+                                <div class="col-lg-9 col-md-9 col-sm-9 service-attribute">
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">ID number:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.id}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Last name:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.lastName}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">First name:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.firstName}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Email:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.email}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Phone:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.phone}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Address:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.address}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Password</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.password}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div> 
+                </div>
+            </ui:define> 
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

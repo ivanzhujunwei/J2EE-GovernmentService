@@ -5,12 +5,16 @@
  */
 package fit5042.repository;
 
+import fit5042.repository.entities.PublicUser;
 import fit5042.repository.entities.Worker;
 import fit5042.utility.Constant;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -46,6 +50,22 @@ public class JPAWorkerRepositoryImpl implements WorkerRepository
             return Constant.DEFAULT_WORKER_ID;
         }
 
+    }
+
+    @Override
+    public Worker searchWorkerByEmail(String email)
+    {
+        // Criteria API
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Worker> query = builder.createQuery(Worker.class);
+        Root<Worker> s = query.from(Worker.class);
+        query.select(s).where(builder.like(s.get("email").as(String.class), "%" + email + "%"));
+        List<Worker> usrs = entityManager.createQuery(query).getResultList();
+        if (usrs.size() >  0){
+            return usrs.get(0);
+        }else{
+            return null;
+        }
     }
 
 }

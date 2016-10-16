@@ -14,6 +14,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -66,6 +69,9 @@ public class JPAPublicUserRepositoryImpl implements PublicUserRepository
     {
         List<PublicUser> users = new ArrayList<>();
         if (!Validate.isEmpty(id)) {
+            if (!Validate.isDigit(id)){
+                return users;
+            }
             int user_id = Integer.parseInt(id);
             PublicUser pu = searchPublicUserByID(user_id);
             if(pu != null){
@@ -85,6 +91,22 @@ public class JPAPublicUserRepositoryImpl implements PublicUserRepository
     public PublicUser searchPublicUserByID(int id)
     {
         return entityManager.find(PublicUser.class, id);
+    }
+
+    @Override
+    public PublicUser searchPublicUserByEmail(String email)
+    {
+        // Criteria API
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<PublicUser> query = builder.createQuery(PublicUser.class);
+        Root<PublicUser> s = query.from(PublicUser.class);
+        query.select(s).where(builder.like(s.get("email").as(String.class), "%" + email + "%"));
+        List<PublicUser> usrs = entityManager.createQuery(query).getResultList();
+        if (usrs.size() >  0){
+            return usrs.get(0);
+        }else{
+            return null;
+        }
     }
 
     @Override

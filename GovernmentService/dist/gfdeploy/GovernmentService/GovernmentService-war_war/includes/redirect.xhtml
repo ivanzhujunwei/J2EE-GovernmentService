@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // Handler for .ready() called.
+                window.setTimeout(function () {
+                    redirect();
+                    window.location.href = "/GovernmentService-war/faces/includes/worker/worker_publicUsers.xhtml";
+                }, 5000);
+            });
+            function redirect(){
+                var name = document.getElementById("username");
+            }
+            function toWorker() {
+                window.location.href = "/GovernmentService-war/faces/worker/worker_publicUsers.xhtml";
+            }
+            function toPublicUser() {
+                window.location.href = "/GovernmentService-war/faces/publicUser/index.xhtml";
+            }
+        </script>
+    </head>
+    <body>
+        <div>Redirecting...
+            <h:outputText  id="username" value="#{request.remoteUser}">ss</h:outputText>
+<!--            <f:metadata>
+                <f:viewParam name="foo" value="#{request.remoteUser}" />
+                <f:viewAction action="#{loginBean.redirect}" />
+            </f:metadata>-->
+
+        </div>
+
+    </body>
+</html>

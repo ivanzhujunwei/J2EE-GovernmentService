@@ -15,21 +15,20 @@
                                 <h:outputText id="loginResult" value="#{publicUserBean.loginResponse}" />
                             </p>
                             <div class="panel-body">
-                                <h:form>
+                                <form method="POST" action="j_security_check">
                                     <div class="form-group">
-                                        <label>Username</label> 
-                                        <h:inputText class="form-control span12" value="#{publicUserBean.userName}"/>
+                                        <label for="j_username">Username</label>
+                                        <input class="form-control span12" type="text" name="j_username" />
                                     </div>
                                     <div class="form-group">
-                                        <label>Password</label>
-                                        <h:inputText id="userName" class="form-control" value="#{publicUserBean.password}"/>
+                                        <label for="j_password">Password</label>
+                                        <input class="form-control" type="password" name="j_password" />
                                     </div>
-                                    <!--<h:commandButton value="Sign In" class="btn btn-success pull-right" action="#{publicUserBean.login()}">-->
-                                        <h:commandButton value="Sign In" class="btn btn-success pull-right"> 
-                                            <f:ajax execute="@form" render="loginResult"  listener="#{publicUserBean.login()}"/>
-                                    </h:commandButton>
+                                    <input class="btn btn-success pull-right" type="submit" value="Sign In"/>
                                     <div class="clearfix"></div>
-                                </h:form>
+                                </form>
+                                <!-- Demo start -->
+                                <!-- Demo finish -->
                             </div>
                         </div>
                     </div>

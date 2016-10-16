@@ -11,6 +11,10 @@ import fit5042.repository.entities.Service;
 import fit5042.utility.Constant;
 import fit5042.utility.Validate;
 import java.io.IOException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,8 +32,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "publicUserBean")
 @SessionScoped
-//@ViewScoped
-public class PublicUserManagedBean
+public class PublicUserManagedBean 
 {
 
     @EJB
@@ -67,6 +70,7 @@ public class PublicUserManagedBean
         searchEmail = "";
     }
 
+    
     /**
      * *
      * Public user login
@@ -83,18 +87,19 @@ public class PublicUserManagedBean
             return "login";
         }
         for (PublicUser pu : publicUserRepository.getAllPublicUser()) {
-            System.out.println("333");
             if (userName.equals(pu.getEmail()) && password.equals(pu.getPassword())) {
                 // Load user's data 
-
                 this.loginResponse = "";
                 ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
                 context.redirect(context.getRequestContextPath() + "/faces/publicUser/index.xhtml");
-//                return "publicUser/index";
             }
         }
         setLoginResponse("Login failed");
         return "login";
+    }
+    
+    public String loginJASS(){
+        return "worker/worker_publicUsers";
     }
 
     /**
@@ -168,7 +173,18 @@ public class PublicUserManagedBean
      * @return User manage home page
      */
     public String addPublicUser(){
-        publicUserRepository.addPublicUser(user);
+        try {
+            // reference: stackoverflow.com/questions/3103652/hash-string-via-sha-256-in-java
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(user.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            user.setPassword(digest.toString());
+            publicUserRepository.addPublicUser(user);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(PublicUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(PublicUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "worker_publicUsers";
     }
     

@@ -58,4 +58,11 @@ public interface PublicUserRepository
      * @return New public user id
      */
     public int getNewPublicUserId();
+    
+    /***
+     * Search public user by email
+     * @param email user's email
+     * @return public user 
+     */
+    public PublicUser searchPublicUserByEmail(String email);
 }

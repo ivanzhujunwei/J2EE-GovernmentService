@@ -5,7 +5,6 @@
  */
 package fit5042.repository.entities;
 
-import fit5042.repository.PublicUserRepository;
 import fit5042.utility.Constant;
 import java.io.Serializable;
 import javax.persistence.Column;

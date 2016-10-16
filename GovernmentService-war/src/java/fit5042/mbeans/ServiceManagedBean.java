@@ -123,6 +123,9 @@ public class ServiceManagedBean implements Serializable
         if (isShowAll) {
             services = getAllServices();
         } else {
+            if (Validate.isEmpty(searchType)){
+                searchType = "";
+            }
             services = serviceRepository.searchServiceCombined(searchNO, searchName, searchType, searchDescription);
         }
         return services;

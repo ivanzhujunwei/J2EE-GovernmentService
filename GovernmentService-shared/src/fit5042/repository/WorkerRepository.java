@@ -5,6 +5,7 @@
  */
 package fit5042.repository;
 
+import fit5042.repository.entities.PublicUser;
 import fit5042.repository.entities.Worker;
 import java.util.List;
 import javax.ejb.Remote;
@@ -27,4 +28,11 @@ public interface WorkerRepository
      * @return Assigned worker id
      */
     public int getAssignedWorkerId();
+    
+    /***
+     * Search worker by email
+     * @param email user's email
+     * @return Worker 
+     */
+    public Worker searchWorkerByEmail(String email);
 }

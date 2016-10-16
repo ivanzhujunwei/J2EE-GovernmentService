@@ -19,26 +19,39 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/worker/worker_publicUsers.xhtml</welcome-file>
+        <welcome-file>faces/includes/index.xhtml</welcome-file>
     </welcome-file-list>
     
     <!-- append the security code -->
-       <security-constraint>
+    <security-constraint>
         <display-name>AdminContstraint</display-name>
         <web-resource-collection>
             <web-resource-name>WebResource</web-resource-name>
             <description/>
-            <url-pattern>/worker/*</url-pattern>
+            <url-pattern>/faces/includes/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description>Administrator</description>
-            <role-name>admin</role-name>
+            <role-name>worker</role-name>
         </auth-constraint>
     </security-constraint>
-
+    
+    <security-constraint>
+        <display-name>AdminContstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>WebResource</web-resource-name>
+            <description/>
+            <url-pattern>/faces/includes/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>PublicUser</description>
+            <role-name>public</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>file</realm-name>
+        <realm-name>JDBCAuthentication</realm-name>
         <form-login-config>
             <form-login-page>/faces/login.xhtml</form-login-page>
             <form-error-page>/faces/error.xhtml</form-error-page>
@@ -47,7 +60,11 @@
 
     <security-role>
         <description>Administrator</description>
-        <role-name>admin</role-name>
+        <role-name>worker</role-name>
     </security-role>
-
+    <security-role>
+        <description>PublicUser</description>
+        <role-name>public</role-name>
+    </security-role>
+   
 </web-app>
