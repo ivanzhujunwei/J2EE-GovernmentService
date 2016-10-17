@@ -69,6 +69,8 @@ public class ServiceManagedBean implements Serializable
     public String searchType;
     // Search description in search page by public
     public String searchDescription;
+    // Search active and inactive services
+    public String activeSelect;
 
     // The variable to judge if this request is showing all services search page  by public
     private boolean isShowAll;
@@ -94,6 +96,7 @@ public class ServiceManagedBean implements Serializable
         searchDescription = "";
         service = new Service();
         isServiceUsed = "";
+        activeSelect = "1";
     }
 
     ////////// Initialise data
@@ -127,7 +130,8 @@ public class ServiceManagedBean implements Serializable
             if (Validate.isEmpty(searchType)){
                 searchType = "";
             }
-            services = serviceRepository.searchServiceCombined(searchNO, searchName, searchType, searchDescription);
+            boolean isActive = activeSelect.equals("1");
+            services = serviceRepository.searchServiceCombined(searchNO, searchName, searchType, searchDescription, isActive);
         }
         return services;
     }
@@ -152,12 +156,12 @@ public class ServiceManagedBean implements Serializable
      * *
      * Show All services, redirect to index page
      *
-     * @return index page
      */
-    public String getShowAllService()
+    public void getShowAllService()
     {
         isShowAll = true;
-        return "index";
+        activeSelect = "1";
+//        return "index";
     }
 
     /***
@@ -176,12 +180,11 @@ public class ServiceManagedBean implements Serializable
      * *
      * Search services, redirect to index page
      *
-     * @return index page
      */
-    public String getSearchedServices()
+    public void getSearchedServices()
     {
         isShowAll = false;
-        return "index";
+//        return "index";
     }
 
     /**
@@ -267,8 +270,9 @@ public class ServiceManagedBean implements Serializable
 
     /**
      * *
+     * MRAK: Never used
      * Delete a service
-     *
+     * 
      * @param service
      * @return
      */
@@ -280,6 +284,18 @@ public class ServiceManagedBean implements Serializable
             return "error";
         }
         serviceRepository.deleteService(service);
+        return "worker_services";
+    }
+    
+    public String inactiveService(Service service){
+        service.setIsActive(false);
+        serviceRepository.updateService(service);
+        return "worker_services";
+    }
+    
+    public String activeService(Service service){
+        service.setIsActive(true);
+        serviceRepository.updateService(service);
         return "worker_services";
     }
     
@@ -367,6 +383,10 @@ public class ServiceManagedBean implements Serializable
      */
     public void uploadThumbnail(String uuid)
     {
+        if (thumbnail ==  null){
+            System.out.println("Thumbnail is null, error happens!");
+            return;
+        }
         try {
             InputStream inputStream = thumbnail.getInputStream();
 //            FileOutputStream outputStream = new FileOutputStream(FileUtility.THUMBNAIL_DIRECTORY + FileUtility.getFileName(thumbnail));
@@ -498,6 +518,16 @@ public class ServiceManagedBean implements Serializable
     public String getSearchType()
     {
         return searchType;
+    }
+
+    public String getActiveSelect()
+    {
+        return activeSelect;
+    }
+
+    public void setActiveSelect(String activeSelect)
+    {
+        this.activeSelect = activeSelect;
     }
 
     public String getSearchDescription()

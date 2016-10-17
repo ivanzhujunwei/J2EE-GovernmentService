@@ -20,7 +20,7 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Ivan Zhu 
+ * @author Ivan Zhu
  */
 @Stateless
 public class JPAServicePRepositoryImpl implements ServiceRepository
@@ -47,7 +47,7 @@ public class JPAServicePRepositoryImpl implements ServiceRepository
     @Override
     public List<ServiceType> getAllServiceType()
     {
-         // JPQL
+        // JPQL
         List<ServiceType> types = entityManager.createNamedQuery(ServiceType.GET_ALL_SERVICE_TYPE).getResultList();
         return types;
     }
@@ -56,7 +56,9 @@ public class JPAServicePRepositoryImpl implements ServiceRepository
     public List<Service> getAllServices()
     {
         // JPQL
-        List<Service> services = entityManager.createNamedQuery(Service.GET_ALL_QUERY_NAME).getResultList();
+        Query q = entityManager.createNamedQuery(Service.GET_ALL_QUERY_NAME);
+        q.setParameter("isactive", true);
+        List<Service> services = q.getResultList();
         return services;
     }
 
@@ -89,21 +91,22 @@ public class JPAServicePRepositoryImpl implements ServiceRepository
     }
 
     @Override
-    public List<Service> searchServiceCombined(String no, String name, String type, String description)
+    public List<Service> searchServiceCombined(String no, String name, String type, String description, boolean isActive)
     {
         List<Service> services = new ArrayList<>();
         // Control service no is not null
-        if (!Validate.isEmpty(no)){
+        if (!Validate.isEmpty(no)) {
             int service_no = Integer.parseInt(no);
-            Service s =  searchServiceByNo(service_no);
-            if(s != null){
+            Service s = searchServiceByNo(service_no);
+            if (s != null) {
                 services.add(s);
             }
-        }else{
+        } else {
             Query q = entityManager.createNamedQuery(Service.GET_SEARCHED_QUERY);
-            q.setParameter("service_name", "%"+name+"%");
-            q.setParameter("service_type", "%"+type+"%");
-            q.setParameter("service_description", "%"+description+"%");
+            q.setParameter("service_name", "%" + name + "%");
+            q.setParameter("service_type", "%" + type + "%");
+            q.setParameter("service_description", "%" + description + "%");
+            q.setParameter("isactive", isActive);
             services = q.getResultList();
         }
         return services;

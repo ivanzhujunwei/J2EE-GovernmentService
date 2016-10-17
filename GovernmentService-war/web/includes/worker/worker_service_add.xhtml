@@ -33,10 +33,7 @@
                                     <div class="form-group col-lg-12 col-md-12 h5">
                                         <label class="col-lg-2 control-label">Service type:</label>
                                         <div class="col-lg-6 service-update-attribute">
-<!--                                            <h:inputText id="servicetype" class="form-control" value="#{serviceManagedBean.service.type}"
-                                                required="true" requiredMessage="Service type can not be empty">
-                                            </h:inputText>-->
-                                            <h:selectOneMenu class="form-control" style="height:35px" value="#{serviceManagedBean.searchType}">
+                                            <h:selectOneMenu class="form-control" style="height:35px" value="#{serviceManagedBean.service.type}">
                                                 <f:selectItems value="#{serviceManagedBean.getAllServiceType()}" />
                                             </h:selectOneMenu>
                                         </div>
@@ -44,16 +41,18 @@
                                     <div class="form-group col-lg-12 col-md-12 h5">
                                         <label class="col-lg-2 control-label">Thumbnail:</label>
                                         <div class="col-lg-6 service-update-thumbnail">
-                                            <h:inputFile id="thumbnailUpload" value="#{serviceManagedBean.thumbnail}" class="file"
-                                                         validator="#{serviceManagedBean.validateImgType}">
+                                            <h:inputFile required="true" requiredMessage="Thumbnail can not be empty" id="thumbnailUpload" value="#{serviceManagedBean.thumbnail}" class="file">
+                                                         <!--validator="#{serviceManagedBean.validateImgType}"-->
                                                 <!--<f:validator ></f:validator>-->
                                             </h:inputFile>
                                         </div>
+                                         <label class="col-lg-4 control-label validate-error"><h:message for="thumbnailUpload"/></label>
                                     </div>
                                     <div class="form-group col-lg-12 col-md-12 h5">
-                                        <div class="col-lg-9 col-md-9 col-sm-9">
-                                            <h:inputTextarea class="form-control" value="#{serviceManagedBean.service.description}"></h:inputTextarea>
+                                        <div class="col-lg-9">
+                                            <h:inputTextarea id="serviceDesc" class="form-control" value="#{serviceManagedBean.service.description}"></h:inputTextarea>
                                         </div>
+                                        <label class="col-lg-3 control-label validate-error"><h:message for="serviceDesc"/></label>
                                     </div>
                                     <div class="form-group col-lg-12 col-md-12 h5">
                                         <div class="col-lg-3 col-md-3 col-sm-3 ">

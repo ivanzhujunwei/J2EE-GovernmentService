@@ -36,9 +36,10 @@ public interface ServiceRepository
      * @param name Service name
      * @param type Service type
      * @param description Service description
+     * @param isActive Service is active or not
      * @return Service list
      */
-    public List<Service> searchServiceCombined(String no, String name, String type, String description);
+    public List<Service> searchServiceCombined(String no, String name, String type, String description, boolean isActive);
     
     /***
      * Search service by service type

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -38,10 +39,13 @@ public class SystemUser implements Serializable
     @Id 
     protected int id;
     @Column(name = "lastname")
+    @NotNull
     protected String lastName;
     @Column(name = "firstname")
+    @NotNull
     protected String firstName;
     @Column(name = "email")
+    @NotNull
     protected String email;
     @Column (name = "password")
     protected String password;
@@ -50,6 +54,7 @@ public class SystemUser implements Serializable
     @Column (name = "address")
     protected String address;
     @Column (name = "phone")
+    @NotNull
     protected String phone;
 
     public SystemUser(){

@@ -1,16 +1,212 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        <ui:composition template="/layout/templete.xhtml">
+            <ui:define name="content">
+                <!--<h:link value="Back To Home" outcome="service_detail" />-->
+                <div class="container"> 
+                    <!-- /.row -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="index.xhtml">Find a service</a> / Account information </div>
+                        <div class="panel-body">
+                            <h:form enctype="multipart/form-data">
+                                <div class="col-lg-9 col-md-9 col-sm-9 service-attribute">
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">ID number:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{loginBean.loggedInPublicUser.id}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Last name:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{loginBean.loggedInPublicUser.lastName}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">First name:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{loginBean.loggedInPublicUser.firstName}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Email:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{loginBean.loggedInPublicUser.email}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Phone:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{loginBean.loggedInPublicUser.phone}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Address:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{loginBean.loggedInPublicUser.address}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div> 
+                    <!-- CURRENT service use records -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="worker_publicUsers.xhtml">Find a service</a> / Current service use </div>
+                        <div class="panel-body">
+                            <h:form enctype="multipart/form-data">
+                                <div class="col-lg-9 col-md-9 col-sm-9 service-attribute">
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">ID number:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.id}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Last name:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.lastName}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">First name:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.firstName}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                        <label class="col-lg-2 control-label service-attribute-label">Email:</label>
+                                        <div class="col-lg-6 service-view-attribute">
+                                            <label>#{publicUserBean.user.email}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div> 
+                    <div class="row">
+
+					<div class="col-md-6">
+						<div class="smart-body">
+							<p class="text-left">Default Tab</p>
+							<ul class="nav nav-tabs default bordered">
+								<li class="active">
+									<a href="#home" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-home"></i></span>
+										<span class="hidden-xs">Home</span>
+									</a>
+								</li>
+								<li>
+									<a href="#profile" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-man"></i></span>
+										<span class="hidden-xs">Profile</span>
+									</a>
+								</li>
+								<li>
+									<a href="#messages" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-email"></i></span>
+										<span class="hidden-xs">Messages</span>
+									</a>
+								</li>
+								<li>
+									<a href="#settings" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-settings2"></i></span>
+										<span class="hidden-xs">Settings</span>
+									</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane fade active in" id="home">
+									<div class="slimScrollBar" style="position: relative; overflow: hidden; width: auto; height: 120px;">
+										<div class="scrollable" data-height="120" style="overflow: hidden; width: auto; height: 120px;">
+
+											<p>aaaaa.</p>
+											
+											<p>Lbbbbbbb</p>
+											
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade in" id="profile">
+										<p>fffxercitation ur.</p>
+								</div>
+								<div class="tab-pane fade in" id="messages">
+										<p>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+								</div>
+								<div class="tab-pane fade in" id="settings">	
+										<p>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+								</div>
+							</div>
+						</div>		
+					</div>
+		
+					<div class="col-md-6">
+						<div class="smart-body">  
+							<p class="text-left">Primary Tab</p>
+							<ul class="nav nav-tabs primary bordered">
+								<li class="active">
+									<a href="#home2" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-home"></i></span>
+										<span class="hidden-xs">Home</span>
+									</a>
+								</li>
+								<li>
+									<a href="#profile2" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-man"></i></span>
+										<span class="hidden-xs">Profile</span>
+									</a>
+								</li>
+								<li>
+									<a href="#messages2" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-email"></i></span>
+										<span class="hidden-xs">Messages</span>
+									</a>
+								</li>
+								<li>
+									<a href="#settings2" data-toggle="tab">
+										<span class="visible-xs"><i class="icon-settings2"></i></span>
+										<span class="hidden-xs">Settings</span>
+									</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane fade active in" id="home2">
+									<div class="slimScrollBar" style="position: relative; overflow: hidden; width: auto; height: 120px;">
+										<div class="scrollable" data-height="120" style="overflow: hidden; width: auto; height: 120px;">
+
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+										consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+										laborum.</p>
+											
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+										consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+										laborum.</p>
+										
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade in" id="profile2">
+										<p>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+								</div>
+								<div class="tab-pane fade in" id="messages2">
+										<p>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+								</div>
+								<div class="tab-pane fade in" id="settings2">	
+										<p>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+								</div>
+							</div>
+						</div>		
+					</div>
+				</div>
+                </div>
+            </ui:define> 
+        </ui:composition>
+    </h:body>
 </html>
+

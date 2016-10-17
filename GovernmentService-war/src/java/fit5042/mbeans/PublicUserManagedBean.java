@@ -179,6 +179,7 @@ public class PublicUserManagedBean
             md.update(user.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
             byte[] digest = md.digest();
             user.setPassword(digest.toString());
+            user.setUser_type("public");
             publicUserRepository.addPublicUser(user);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(PublicUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
