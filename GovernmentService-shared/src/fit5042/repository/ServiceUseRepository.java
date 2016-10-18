@@ -5,6 +5,8 @@
  */
 package fit5042.repository;
 
+import fit5042.repository.entities.PublicUser;
+import fit5042.repository.entities.Service;
 import fit5042.repository.entities.ServiceUse;
 import java.util.List;
 import javax.ejb.Remote;
@@ -16,38 +18,73 @@ import javax.ejb.Remote;
 @Remote
 public interface ServiceUseRepository
 {
-    /****
+
+    /**
+     * **
      * Get all service uses
+     *
      * @return All service uses
      */
     public List<ServiceUse> getAllServiceUse();
-    
-    /***
+
+    /**
+     * *
      * Add a serviceUse
+     *
      * @param serviceUse the serviceUse needed to be added
      */
     public void addServiceUse(ServiceUse serviceUse);
-    
-    /***
+
+    /**
+     * *
      * Get one public user's service uses records
-     * @param su_id service use id
+     *
+     * @param pu public user
      * @return Public user's service use list
      */
-    public List<ServiceUse> getServiceUseByUserNO(int su_id);
-    
-    /***
+    public List<ServiceUse> getServiceUseByUser(PublicUser pu);
+
+    /**
+     * *
      * Update service use, e.g. finish one service use
-     * @param su Service use 
+     *
+     * @param su Service use
      */
     public void updateServiceUse(ServiceUse su);
-    
-    /***
-     * Get uncompleted service use 
+
+    /**
+     * *
+     * Get uncompleted service use
+     *
      * @param user_id public user id
      * @param service_id service id
      * @return Uncompleted service use
      */
     public ServiceUse getServiceUse(int user_id, int service_id);
     
-    
+    /***
+     * Get all related service use by a particular service
+     * @param service
+     * @return Service use related with the service
+     */
+    public List<ServiceUse> getServiceUsesByService(Service service);
+
+    /**
+     * *
+     * Get current service use records
+     *
+     * @param publicUserId public user id
+     * @return Service use list
+     */
+//    public List<ServiceUse> getCurrentServiceUsesByPublic(int publicUserId);
+
+    /**
+     * *
+     * Get completed service use records
+     *
+     * @param publicUserId public user id
+     * @return Service use list
+     */
+//    public List<ServiceUse> getFinishedServiceUsesByPublic(int publicUserId);
+
 }

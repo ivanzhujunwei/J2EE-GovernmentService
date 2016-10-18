@@ -63,35 +63,6 @@ public class ServiceUserManagedBean
         } else {
             this.useServiceResult = "";
         }
-
-    }
-
-    /**
-     * *
-     * Use a service
-     *
-     * @return Service detail page
-     */
-    public void useService()
-    {
-        // Simulate a public user
-//        PublicUser pu = new PublicUser();
-//        pu.setId(1);
-//        // Create a new serviceUse
-//        ServiceUse su = new ServiceUse();
-//        su.setPublicUser(pu);
-        // Distribute a worker to deal with the transaction
-        // The service will be assigned to the worker who has smallest number of services to deal with.
-//        su.setGovernmentWorker(getAssignedWorker());
-        // Get current data
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-//	Date date = new Date();
-//        su.setUseDate(dateFormat.format(date));
-//        su.setUseDate(useServiceResult);
-        // Add the serviceUse
-//        serviceRepository.addService(su);
-//        this.useServiceResult = "Apply successfully";
-//        return "service_detail";
     }
 
     public String getUseServiceResult()

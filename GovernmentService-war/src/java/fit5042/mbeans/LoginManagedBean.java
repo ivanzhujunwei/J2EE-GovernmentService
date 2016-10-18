@@ -6,9 +6,13 @@
 package fit5042.mbeans;
 
 import fit5042.repository.PublicUserRepository;
+import fit5042.repository.ServiceUseRepository;
 import fit5042.repository.WorkerRepository;
 import fit5042.repository.entities.PublicUser;
+import fit5042.repository.entities.ServiceUse;
 import fit5042.repository.entities.Worker;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,16 +37,21 @@ public class LoginManagedBean
     @EJB
     WorkerRepository workerRepository;
 
+    @EJB
+    ServiceUseRepository serviceUseRepository;
+
     // Logged in public user
     private PublicUser loggedInPublicUser;
-    
+
     // Logged in worker
     private Worker loggedInWorker;
-    
-    public LoginManagedBean(){
+
+    public LoginManagedBean()
+    {
         loggedInPublicUser = new PublicUser();
         loggedInWorker = new Worker();
     }
+
     /**
      * *
      * Once user logged in, redirect immediately based on the different role
@@ -66,33 +75,49 @@ public class LoginManagedBean
         return "error";
     }
 
-//    /**
-//     * *
-//     * 
-//     *
-//     * @return public user
-//     */
-//    public PublicUser getLoggedInPublicUser()
-//    {
-//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//        String username = request.getRemoteUser();
-//        loggedInPublicUser = publicUserRepository.searchPublicUserByEmail(username);
-//        return loggedInPublicUser;
-//    }
-//
-//    /**
-//     * *
-//     * 
-//     *
-//     * @return worker
-//     */
-//    public Worker getLoggedInWorker()
-//    {
-//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//        String username = request.getRemoteUser();
-//        loggedInWorker = workerRepository.searchWorkerByEmail(username);
-//        return loggedInWorker;
-//    }
+    /**
+     * *
+     * Get current service use records
+     *
+     * @return Service use list
+     */
+    public List<ServiceUse> getCurrentServiceUse()
+    {
+        System.out.println("fit5042.mbeans.LoginManagedBean.getCurrentServiceUse()");
+        List<ServiceUse> sus = new ArrayList<>();
+        for (ServiceUse su : getAllServiceUse()) {
+            if (!su.isIsFinished()) {
+                sus.add(su);
+            }
+        }
+        return sus;
+    }
+
+    /**
+     * *
+     * Get completed service use records
+     *
+     * @return Service use list
+     */
+    public List<ServiceUse> getFinishedServiceUsesByPublic()
+    {
+        List<ServiceUse> sus = new ArrayList<>();
+        for (ServiceUse su : getAllServiceUse()) {
+            if (su.isIsFinished()) {
+                sus.add(su);
+            }
+        }
+        return sus;
+    }
+
+    /***
+     * Get all service use
+     * @return 
+     */
+    public List<ServiceUse> getAllServiceUse()
+    {
+        return serviceUseRepository.getServiceUseByUser(loggedInPublicUser);
+    }
 
     public void setLoggedInPublicUser(PublicUser loggedInPublicUser)
     {
@@ -113,6 +138,5 @@ public class LoginManagedBean
     {
         return loggedInWorker;
     }
-
 
 }

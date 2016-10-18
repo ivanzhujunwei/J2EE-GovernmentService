@@ -288,7 +288,13 @@ public class ServiceManagedBean implements Serializable
     }
     
     public String inactiveService(Service service){
+        // set service status
         service.setIsActive(false);
+        // set related service use finished
+        for (ServiceUse su : serviceUseRepository.getServiceUsesByService(service)){
+            su.setIsFinished(true);
+            serviceUseRepository.updateServiceUse(su);
+        }
         serviceRepository.updateService(service);
         return "worker_services";
     }

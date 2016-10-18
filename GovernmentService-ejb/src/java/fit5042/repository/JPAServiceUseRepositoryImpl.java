@@ -8,7 +8,6 @@ package fit5042.repository;
 import fit5042.repository.entities.PublicUser;
 import fit5042.repository.entities.Service;
 import fit5042.repository.entities.ServiceUse;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -29,7 +28,7 @@ public class JPAServiceUseRepositoryImpl implements ServiceUseRepository
 
     @PersistenceContext(unitName = "GovernmentService-ejbPU")
     private EntityManager entityManager;
-    
+
     public static List<ServiceUse> serviceUseList;
 
     @Override
@@ -47,26 +46,36 @@ public class JPAServiceUseRepositoryImpl implements ServiceUseRepository
     }
 
     @Override
+    public List<ServiceUse> getServiceUsesByService(Service service)
+    {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ServiceUse> query = builder.createQuery(ServiceUse.class);
+        Root<ServiceUse> s = query.from(ServiceUse.class);
+        query.select(s).where(builder.equal(s.get("usedService").as(Service.class), service));
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
     public void updateServiceUse(ServiceUse su)
     {
         entityManager.merge(su);
     }
 
     @Override
-    public List<ServiceUse> getServiceUseByUserNO(int su_id)
+    public List<ServiceUse> getServiceUseByUser(PublicUser pu)
     {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ServiceUse> query = builder.createQuery(ServiceUse.class);
         Root<ServiceUse> s = query.from(ServiceUse.class);
-//        query.select(s).where(builder.like(s.get("type").as(String.class), "%" + type + "%"));
-        query.select(s).where(builder.equal(s.get("used_by").as(String.class), su_id));
+        query.select(s).where(builder.equal(s.get("publicUser").as(PublicUser.class), pu));
         return entityManager.createQuery(query).getResultList();
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init()
+    {
         // If I want to load all data into server when the 
-        
+
     }
 
     @Override

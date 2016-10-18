@@ -6,13 +6,12 @@
 package fit5042.mbeans;
 
 import fit5042.repository.PublicUserRepository;
+import fit5042.repository.ServiceUseRepository;
 import fit5042.repository.entities.PublicUser;
-import fit5042.repository.entities.Service;
+import fit5042.repository.entities.ServiceUse;
 import fit5042.utility.Constant;
 import fit5042.utility.Validate;
 import java.io.IOException;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -37,6 +35,9 @@ public class PublicUserManagedBean
 
     @EJB
     PublicUserRepository publicUserRepository;
+    
+    @EJB
+    ServiceUseRepository serviceUseRepository;
 
     // The variable to judge if this request is showing all public users search page  by worker
     private boolean isShowAll;
@@ -173,21 +174,48 @@ public class PublicUserManagedBean
      * @return User manage home page
      */
     public String addPublicUser(){
-        try {
-            // reference: stackoverflow.com/questions/3103652/hash-string-via-sha-256-in-java
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(user.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
-            byte[] digest = md.digest();
-            user.setPassword(digest.toString());
+            user.setPassword(SHA(user.getPassword()));
             user.setUser_type("public");
             publicUserRepository.addPublicUser(user);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PublicUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(PublicUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return "worker_publicUsers";
     }
+    
+    // reference: blog.csdn.net/joyous/article/details/49898383
+    private String SHA(final String strText)
+    {
+        // 返回值  
+        String strResult = null;
+        // 是否是有效字符串  
+        if (strText != null && strText.length() > 0) {
+            try {
+                // SHA 加密开始  
+                // 创建加密对象 并傳入加密類型  
+                MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                // 传入要加密的字符串  
+                messageDigest.update(strText.getBytes());
+                // 得到 byte 類型结果  
+                byte byteBuffer[] = messageDigest.digest();
+                // 將 byte 轉換爲 string  
+                StringBuffer strHexString = new StringBuffer();
+                // 遍歷 byte buffer  
+                for (int i = 0; i < byteBuffer.length; i++) {
+                    String hex = Integer.toHexString(0xff & byteBuffer[i]);
+                    if (hex.length() == 1) {
+                        strHexString.append('0');
+                    }
+                    strHexString.append(hex);
+                }
+                // 得到返回結果  
+                strResult = strHexString.toString();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+  
+    return strResult;  
+  }  
+
+    
     
     public String updatePublicUser(){
         publicUserRepository.updatePublicUser(this.user);
@@ -229,6 +257,51 @@ public class PublicUserManagedBean
      */
     public void resetPassword(){
         this.user.setPassword(Constant.DEFAULT_PSD);
+    }
+    
+    
+    /**
+     * *
+     * Get current service use records
+     *
+     * @return Service use list
+     */
+    public List<ServiceUse> getCurrentServiceUse()
+    {
+        System.out.println("fit5042.mbeans.LoginManagedBean.getCurrentServiceUse()");
+        List<ServiceUse> sus = new ArrayList<>();
+        for (ServiceUse su : getAllServiceUse()) {
+            if (!su.isIsFinished()) {
+                sus.add(su);
+            }
+        }
+        return sus;
+    }
+
+    /**
+     * *
+     * Get completed service use records
+     *
+     * @return Service use list
+     */
+    public List<ServiceUse> getFinishedServiceUsesByPublic()
+    {
+        List<ServiceUse> sus = new ArrayList<>();
+        for (ServiceUse su : getAllServiceUse()) {
+            if (su.isIsFinished()) {
+                sus.add(su);
+            }
+        }
+        return sus;
+    }
+
+    /***
+     * Get all service use
+     * @return 
+     */
+    public List<ServiceUse> getAllServiceUse()
+    {
+        return serviceUseRepository.getServiceUseByUser(user);
     }
     public String getUserName()
     {

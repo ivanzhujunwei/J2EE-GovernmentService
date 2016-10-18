@@ -14,7 +14,10 @@
                             <a href="worker_publicUsers.xhtml">User Manage</a> / View user detail </div>
                         <div class="panel-body">
                             <h:form enctype="multipart/form-data">
-                                <div class="col-lg-9 col-md-9 col-sm-9 service-attribute">
+                                <div class="col-lg-3">
+                                    <img src="../../resources/images/publicUserPhoto/strangeeer.png"></img>
+                                </div>
+                                <div class="col-lg-9">
                                     <div class="form-group col-lg-12 col-md-12 h5">
                                         <label class="col-lg-2 control-label service-attribute-label">ID number:</label>
                                         <div class="col-lg-6 service-view-attribute">
@@ -51,16 +54,78 @@
                                             <label>#{publicUserBean.user.address}</label>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-12 col-md-12 h5">
-                                        <label class="col-lg-2 control-label service-attribute-label">Password</label>
-                                        <div class="col-lg-6 service-view-attribute">
-                                            <label>#{publicUserBean.user.password}</label>
-                                        </div>
-                                    </div>
                                 </div>
                             </h:form>
                         </div>
                     </div> 
+                    
+                    <!-- CURRENT service use records -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Services currently in use 
+                        </div>
+                        <div class="panel-body" style="min-height: 100px; max-height: 300px; overflow-y: scroll;">
+                            <h:form id="MyForm">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th width="15%"> Transaction id </th>
+                                        <th width="10%"> Service id </th>
+                                        <th width="25%"> Service name </th>
+                                        <th width="10%"> Service type </th>
+                                        <th width="10%"> Used date </th>
+                                        <th width="10%"> Staff </th>
+                                        <!--<th width="50%"> Used date </th>-->
+                                    </tr>
+                                    <!-- For each service in service list... --> 
+                                    <ui:repeat id="Myrepeat" value="#{publicUserBean.getCurrentServiceUse()}" var="serviceuse" varStatus="status"> 
+                                        <tr> 
+                                            <td style="vertical-align: middle"> <h:outputText value="#{serviceuse.useId}"  /></td>
+                                            <td style="vertical-align: middle">  <h:outputText value="#{serviceuse.usedService.service_no}" />  </td>
+                                            <td style="vertical-align: middle">  <h:outputText value="#{serviceuse.usedService.name}" />  </td>
+                                            <td style="vertical-align: middle">  <h:outputText value="#{serviceuse.usedService.type}" />  </td>
+                                            <td style="vertical-align: middle"> <h:outputText value="#{serviceuse.useDate}"  /></td>
+                                            <td style="vertical-align: middle"> <h:outputText value="#{serviceuse.governmentWorker.firstName}"  /></td>
+                                        </tr> 
+                                    </ui:repeat> 
+
+                                </table>
+                            </h:form>
+                        </div>
+                    </div>
+                    
+                    <!-- completed service use records -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Finished service use 
+                        </div>
+                        <div class="panel-body" style="min-height: 100px; max-height: 300px; overflow-y: scroll;">
+                            <h:form id="MyForm2">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th width="15%"> Transaction id </th>
+                                        <th width="10%"> Service id </th>
+                                        <th width="25%"> Service name </th>
+                                        <th width="10%"> Service type </th>
+                                        <th width="10%"> Used date </th>
+                                        <th width="10%"> Staff </th>
+                                        <!--<th width="50%"> Used date </th>-->
+                                    </tr>
+                                    <!-- For each service in service list... --> 
+                                    <ui:repeat id="Myrepeat" value="#{publicUserBean.getFinishedServiceUsesByPublic()}" var="serviceuse" varStatus="status"> 
+                                        <tr> 
+                                            <td style="vertical-align: middle"> <h:outputText value="#{serviceuse.useId}"  /></td>
+                                            <td style="vertical-align: middle">  <h:outputText value="#{serviceuse.usedService.service_no}" />  </td>
+                                            <td style="vertical-align: middle">  <h:outputText value="#{serviceuse.usedService.name}" />  </td>
+                                            <td style="vertical-align: middle">  <h:outputText value="#{serviceuse.usedService.type}" />  </td>
+                                            <td style="vertical-align: middle"> <h:outputText value="#{serviceuse.useDate}"  /></td>
+                                            <td style="vertical-align: middle"> <h:outputText value="#{serviceuse.governmentWorker.firstName}"  /></td>
+                                        </tr> 
+                                    </ui:repeat> 
+
+                                </table>
+                            </h:form>
+                        </div>
+                    </div>
                 </div>
             </ui:define> 
 
