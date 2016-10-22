@@ -1,6 +1,6 @@
 -- insert public user 
 INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
-	VALUES (27157625, 'Clayton', 'ssssed@gmail.co', 'K', 0, 'Peter', 'governmentservice', '123456033', 'public');
+	VALUES (27157625, 'Clayton', 'ssssed@gmail.co', 'K', 1, 'Peter', 'governmentservice', '123456033', 'public');
 INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
 	VALUES (27157626, 'Clayton', 'sed@gmail.com', 'Pl', 1, 'Kevin', '43582b147f5e36c44f7b8380f56e01a0b64363750bfd244af0ed1e3e7b859d69', '0123456789', 'public');
 INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
@@ -10,11 +10,10 @@ INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LA
 INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
 	VALUES (27157632, 'sdf', 'sdf@ds.com', 'testFirst', 1, ' testLast', 'governmentservice', '91234567', NULL);
 INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
-	VALUES (27157633, '4352435', 'sd@df.com', 'ss', 1, 'newUse', '[B@63ce84c4', '123456789', 'public');
-INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
 	VALUES (27157634, 'asdf', 'hhh@d.com', 'hhh', 0, 'hhh', '-29-80-6066-104-42820-102-5-12-56-103111-713639-8265-28100-101-10976-92-107-1032712082-7285', '123456789', 'public');
 INSERT INTO FIT5042.PUBLICUSER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
 	VALUES (27157635, 'dsadf', 'aa@ss.com', 'aaa', 0, 'aaaa', '43582b147f5e36c44f7b8380f56e01a0b64363750bfd244af0ed1e3e7b859d69', '91234567', 'public');
+
 
 
 -- insert worker
@@ -26,6 +25,7 @@ INSERT INTO FIT5042.WORKER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNA
 	VALUES (2, 'East caulfield', 'rli230@gmail.com', 'Can', 1, 'Wang', '123', '426731519', 'worker');
 INSERT INTO FIT5042.WORKER (USER_ID, ADDRESS, EMAIL, FIRSTNAME, ISACTIVE, LASTNAME, PASSWORD, PHONE, USER_TYPE) 
 	VALUES (3, 'East caulfield', 'rguo198@gmail.com', 'Richard', 0, 'Guo', '123', '416730819', 'worker');
+
 
 
 -- insert service type
@@ -78,6 +78,14 @@ INSERT INTO FIT5042.SERVICE (SERVICE_NO, DESCRIPTION, ISACTIVE, "NAME", THUMBNAI
 	VALUES (291909, 'd1', 1, '111', '43220ed2-0e3f-42ea-b61b-245984fdc057.jpg', 'Insurance');
 INSERT INTO FIT5042.SERVICE (SERVICE_NO, DESCRIPTION, ISACTIVE, "NAME", THUMBNAIL, "TYPE") 
 	VALUES (296309, 'Citizenship service description template. Service of citizenship, some rights you may not know, explore here.', 1, 'Citizenship', 'f0271ad3-3756-4250-9a22-74f74cd59f85.jpg', 'Citizenship');
+INSERT INTO FIT5042.SERVICE (SERVICE_NO, DESCRIPTION, ISACTIVE, "NAME", THUMBNAIL, "TYPE") 
+	VALUES (308409, 'abcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghikabcdefghika', 1, 'abcde', '1c9ca8d2-8e9b-49e3-baed-0dd8b82b665f.jpg', 'Insurance');
+INSERT INTO FIT5042.SERVICE (SERVICE_NO, DESCRIPTION, ISACTIVE, "NAME", THUMBNAIL, "TYPE") 
+	VALUES (308809, 'Welfare service description template. Service of welfare, do what you want to help others.', 0, 'Welfare', 'd366de4a-ee42-4818-8210-486edef7e1ad.jpg', 'Welfare');
+INSERT INTO FIT5042.SERVICE (SERVICE_NO, DESCRIPTION, ISACTIVE, "NAME", THUMBNAIL, "TYPE") 
+	VALUES (309209, 'Education service description template. Service of education, you can find a situable certificate here.', 1, 'Education', 'c155c620-5a4b-4406-9d8e-e1edf8e86cda.jpg', 'Education');
+
+
 
 -- insert service use
 INSERT INTO FIT5042.SERVICEUSE (USEID, IS_FINISHED, USEDATE, MANAGED_BY, USEDSERVICE, USED_BY) 
@@ -130,3 +138,4 @@ INSERT INTO FIT5042.SERVICEUSE (USEID, IS_FINISHED, USEDATE, MANAGED_BY, USEDSER
 	VALUES (2625, 0, '2016/10/21', 2, 2, 27157626);
 INSERT INTO FIT5042.SERVICEUSE (USEID, IS_FINISHED, USEDATE, MANAGED_BY, USEDSERVICE, USED_BY) 
 	VALUES (2626, 0, '2016/10/21', 5, 5, 27157627);
+
