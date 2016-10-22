@@ -74,6 +74,7 @@
                                         <th width="15%"> Action </th>
                                         <th width="5%">  </th>
                                         <th width="5%">  </th>
+                                        <th width="5%">  </th>
                                     </tr>
                                     <!-- For each service in service list... --> 
                                     <ui:repeat id="Myrepeat" value="#{serviceManagedBean.serviceList}" var="service" varStatus="status"> 
@@ -91,7 +92,7 @@
                                             </td>
                                             <td>
                                                 <h:commandLink action="#{serviceManagedBean.inactiveService(service)}"
-                                                               onclick="if (!confirm('Public will not see this service, really inactive this service?')) {
+                                                               onclick="if (!confirm('Public will not see this service, really inactivate this service?')) {
                                                                                return false;
                                                                            }
                                                                            ;
@@ -101,12 +102,22 @@
                                             </td>
                                             <td>
                                                 <h:commandLink action="#{serviceManagedBean.activeService(service)}"
-                                                               onclick="if (!confirm('Public will see this service, really active this service?')) {
+                                                               onclick="if (!confirm('Public will see this service, really activate this service?')) {
                                                                                return false;
                                                                            }
                                                                            ;
                                                                            return true;">
                                                     <i class="fa fa-undo" aria-hidden="true"></i>
+                                                </h:commandLink>
+                                            </td>
+                                            <td>
+                                                <h:commandLink action="#{serviceManagedBean.deleteService(service)}"
+                                                               onclick="if (!confirm('All the information about this Service will be removed!!! really delete this service?')) {
+                                                                               return false;
+                                                                           }
+                                                                           ;
+                                                                           return true;">
+                                                    <i class="fa fa-remove" aria-hidden="true"></i>
                                                 </h:commandLink>
                                             </td>
                                         </tr> 
@@ -125,6 +136,7 @@
                             $("td:nth-child(5)").hide();
                         }else {
                             $("td:nth-child(6)").hide();
+                            $("td:nth-child(7)").hide();
                         }
                     });
                 </script>

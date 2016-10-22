@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -40,12 +41,19 @@ public class JPAWorkerRepositoryImpl implements WorkerRepository
     {
         // JPQL
         System.out.println(Worker.GET_ASSIGNED_WORKERID);
-        List<Integer> workerIds = entityManager.createNamedQuery(Worker.GET_ASSIGNED_WORKERID).getResultList();
-        if (workerIds.size() > 0) {
-            return 1;
+        String getAssignedWorkerId = "SELECT COUNT(wo.USER_ID),wo.USER_ID,wo.LASTNAME from worker wo "
+                + "left join ServiceUse w   on wo.USER_ID = w.MANAGED_BY "
+                + "GROUP BY wo.USER_ID,wo.LASTNAME ORDER BY COUNT(wo.USER_ID) asc";
+        Query q = entityManager.createNativeQuery(getAssignedWorkerId);
+        List<Object> ss = q.getResultList();
+//        List workerObj = entityManager.createNamedQuery(Worker.GET_ASSIGNED_WORKERID).getResultList();
+        if (ss.size() > 0) {
+//            return workerObj.get(0)
+            Object[] workerIds = (Object[]) ss.get(0);
+            return (int) workerIds[1];
             //serverError: class javax.ejb.EJBException java.lang.Long cannot be cast to java.lang.Integer
 //            return workerIds.get(0).intValue();
-        }else{
+        } else {
             // Assign the first worker: Ivan Zhu
             return Constant.DEFAULT_WORKER_ID;
         }
@@ -61,9 +69,9 @@ public class JPAWorkerRepositoryImpl implements WorkerRepository
         Root<Worker> s = query.from(Worker.class);
         query.select(s).where(builder.like(s.get("email").as(String.class), "%" + email + "%"));
         List<Worker> usrs = entityManager.createQuery(query).getResultList();
-        if (usrs.size() >  0){
+        if (usrs.size() > 0) {
             return usrs.get(0);
-        }else{
+        } else {
             return null;
         }
     }

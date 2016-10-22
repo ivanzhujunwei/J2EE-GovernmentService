@@ -48,7 +48,9 @@ public class JPAPublicUserRepositoryImpl implements PublicUserRepository
     public List<PublicUser> getAllPublicUser()
     {
         // JPQL
-        List<PublicUser> publicUsers = entityManager.createNamedQuery(PublicUser.GET_ALL_QUERY_NAME).getResultList();
+        Query q = entityManager.createNamedQuery(PublicUser.GET_ALL_QUERY_NAME);
+        q.setParameter("isActive", true);
+        List<PublicUser> publicUsers = q.getResultList();
         return publicUsers;
     }
 
@@ -65,7 +67,7 @@ public class JPAPublicUserRepositoryImpl implements PublicUserRepository
     }
 
     @Override
-    public List<PublicUser> getSearchPublicUserCombined(String id, String lastName, String firstName, String email)
+    public List<PublicUser> getSearchPublicUserCombined(String id, String lastName, String firstName, String email, boolean isActive)
     {
         List<PublicUser> users = new ArrayList<>();
         if (!Validate.isEmpty(id)) {
@@ -82,6 +84,7 @@ public class JPAPublicUserRepositoryImpl implements PublicUserRepository
             q.setParameter("lastname", "%"+lastName+"%");
             q.setParameter("firstname", "%"+firstName+"%");
             q.setParameter("email", "%"+email+"%");
+            q.setParameter("isActive", isActive);
             users = q.getResultList();
         }
         return users;

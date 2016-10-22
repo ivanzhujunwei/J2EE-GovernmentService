@@ -56,6 +56,8 @@ public class SystemUser implements Serializable
     @Column (name = "phone")
     @NotNull
     protected String phone;
+    @Column ( name = "isActive")
+    protected boolean isActive;
 
     public SystemUser(){
         this.password = Constant.DEFAULT_PSD;
@@ -152,6 +154,16 @@ public class SystemUser implements Serializable
     public void setUser_type(String user_type)
     {
         this.user_type = user_type;
+    }
+
+    public boolean isIsActive()
+    {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive)
+    {
+        this.isActive = isActive;
     }
 
 }

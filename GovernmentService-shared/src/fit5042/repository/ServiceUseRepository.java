@@ -19,6 +19,12 @@ import javax.ejb.Remote;
 public interface ServiceUseRepository
 {
 
+    /***
+     * 
+     * @param su 
+     */
+    public void deleteServiceUse(ServiceUse su);
+
     /**
      * **
      * Get all service uses

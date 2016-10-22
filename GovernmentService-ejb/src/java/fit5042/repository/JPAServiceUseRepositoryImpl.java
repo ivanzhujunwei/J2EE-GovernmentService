@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -30,6 +31,15 @@ public class JPAServiceUseRepositoryImpl implements ServiceUseRepository
     private EntityManager entityManager;
 
     public static List<ServiceUse> serviceUseList;
+
+    @Override
+    public void deleteServiceUse(ServiceUse su)
+    {
+        // Need to get the service from entityManager first
+        ServiceUse s = entityManager.getReference(ServiceUse.class, su.getUseId());
+        // After finding the service, then it can be deleted
+        entityManager.remove(s);
+    }
 
     @Override
     public ServiceUse getServiceUse(int user_id, int service_id)
@@ -69,13 +79,6 @@ public class JPAServiceUseRepositoryImpl implements ServiceUseRepository
         Root<ServiceUse> s = query.from(ServiceUse.class);
         query.select(s).where(builder.equal(s.get("publicUser").as(PublicUser.class), pu));
         return entityManager.createQuery(query).getResultList();
-    }
-
-    @PostConstruct
-    public void init()
-    {
-        // If I want to load all data into server when the 
-
     }
 
     @Override

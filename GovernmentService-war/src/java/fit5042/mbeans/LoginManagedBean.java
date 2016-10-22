@@ -119,9 +119,19 @@ public class LoginManagedBean
         return serviceUseRepository.getServiceUseByUser(loggedInPublicUser);
     }
 
+    public PublicUser getLoggedInPublicUser()
+    {
+        return loggedInPublicUser;
+    }
+
     public void setLoggedInPublicUser(PublicUser loggedInPublicUser)
     {
         this.loggedInPublicUser = loggedInPublicUser;
+    }
+
+    public Worker getLoggedInWorker()
+    {
+        return loggedInWorker;
     }
 
     public void setLoggedInWorker(Worker loggedInWorker)
@@ -129,14 +139,6 @@ public class LoginManagedBean
         this.loggedInWorker = loggedInWorker;
     }
 
-    public PublicUser getLoggedInPublicUser()
-    {
-        return loggedInPublicUser;
-    }
-
-    public Worker getLoggedInWorker()
-    {
-        return loggedInWorker;
-    }
+   
 
 }

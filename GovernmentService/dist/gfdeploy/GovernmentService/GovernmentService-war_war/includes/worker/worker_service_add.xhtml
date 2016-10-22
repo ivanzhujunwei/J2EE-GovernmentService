@@ -7,21 +7,85 @@
     <h:body>
         <ui:composition template="/layout/workerTemplete.xhtml">
             <ui:define name="content">
+                <script>
+                    $(document).ready(function () {
+                        $.ajax({
+                            url: "http://localhost:44043/GovernmentService-war/webresources/GovernmentService"
+                        }).then(function (data) {
+                            // type
+                            $('#s1type').append(data.Insurance.type);
+                            $('#s2type').append(data.Childcare.type);
+                            $('#s3type').append(data.Education.type);
+                            $('#s4type').append(data.Welfare.type);
+                            $('#s5type').append(data.Citizenship.type);
+                            // desc
+                            $('#s1desc').val(data.Insurance.description);
+                            $('#s2desc').val(data.Childcare.description);
+                            $('#s3desc').val(data.Education.description);
+                            $('#s4desc').val(data.Welfare.description);
+                            $('#s5desc').val(data.Citizenship.description);
+                        });
+
+                        $('#s1type').on("click", function () {
+                            var type = $('#s1type').text();
+                            var desc = $('#s1desc').val();
+                            $('#addServiceForm\\:serviceDesc').val(desc);
+                            $('#addServiceForm\\:selecType').val(type);
+                            $('#addServiceForm\\:servicename').val(type);
+                        });
+                        $('#s2type').on("click", function () {
+                            var type = $('#s2type').text();
+                            var desc = $('#s2desc').val();
+                            $('#addServiceForm\\:serviceDesc').val(desc);
+                            $('#addServiceForm\\:selecType').val("Child care");
+                            $('#addServiceForm\\:servicename').val(type);
+                        });
+                        $('#s3type').on("click", function () {
+                            var type = $('#s3type').text();
+                            var desc = $('#s3desc').val();
+                            $('#addServiceForm\\:serviceDesc').val(desc);
+                            $('#addServiceForm\\:selecType').val(type);
+                            $('#addServiceForm\\:servicename').val(type);
+                        });
+                        $('#s4type').on("click", function () {
+                            var type = $('#s4type').text();
+                            var desc = $('#s4desc').val();
+                            $('#addServiceForm\\:serviceDesc').val(desc);
+                            $('#addServiceForm\\:selecType').val(type);
+                            $('#addServiceForm\\:servicename').val(type);
+                        });
+                        $('#s5type').on("click", function () {
+                            var type = $('#s5type').text();
+                            var desc = $('#s5desc').val();
+                            $('#addServiceForm\\:serviceDesc').val(desc);
+                            $('#addServiceForm\\:selecType').val(type);
+                            $('#addServiceForm\\:servicename').val(type);
+                        });
+                    });
+
+                </script>
                 <div class="container"> 
+                    <div class="hidden">
+                        <input id="s1desc"></input>
+                        <input id="s2desc"></input>
+                        <input id="s3desc"></input>
+                        <input id="s4desc"></input>
+                        <input id="s5desc"></input>
+                    </div>
                     <!-- /.row -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a href="worker_services.xhtml">Services Manage</a> / Add a Service </div>
                         <div class="panel-body">
-                            <h:form enctype="multipart/form-data">
-                                <div class="col-lg-9 col-md-9 col-sm-9 service-attribute">
-                                    <div class="form-group col-lg-12 col-md-12 h5">
+                            <h:form id="addServiceForm" enctype="multipart/form-data">
+                                <div class="col-lg-9 service-attribute">
+                                    <div class="form-group col-lg-12 h5">
                                         <label class="col-lg-2 control-label">Service NO.:</label>
                                         <div class="col-lg-6 service-update-attribute">
                                             <h:inputText class="form-control" disabled="true" value="#{serviceManagedBean.service.service_no}"/>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                    <div class="form-group col-lg-12 h5">
                                         <label class="col-lg-2 control-label">Service name:</label>
                                         <div class="col-lg-6 service-update-attribute">
                                             <h:inputText id="servicename" class="form-control" value="#{serviceManagedBean.service.name}" 
@@ -30,15 +94,15 @@
                                         </div>
                                         <label class="col-lg-4 control-label validate-error"><h:message for="servicename"/></label>
                                     </div>
-                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                    <div class="form-group col-lg-12 h5">
                                         <label class="col-lg-2 control-label">Service type:</label>
                                         <div class="col-lg-6 service-update-attribute">
-                                            <h:selectOneMenu class="form-control" style="height:35px" value="#{serviceManagedBean.service.type}">
+                                            <h:selectOneMenu id="selecType" class="form-control" style="height:35px" value="#{serviceManagedBean.service.type}">
                                                 <f:selectItems value="#{serviceManagedBean.getAllServiceType()}" />
                                             </h:selectOneMenu>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                    <div class="form-group col-lg-12 h5">
                                         <label class="col-lg-2 control-label">Thumbnail:</label>
                                         <div class="col-lg-6 service-update-thumbnail">
                                             <h:inputFile required="true" requiredMessage="Thumbnail can not be empty" id="thumbnailUpload" value="#{serviceManagedBean.thumbnail}" class="file">
@@ -46,18 +110,36 @@
                                                 <!--<f:validator ></f:validator>-->
                                             </h:inputFile>
                                         </div>
-                                         <label class="col-lg-4 control-label validate-error"><h:message for="thumbnailUpload"/></label>
+                                        <label class="col-lg-4 control-label validate-error"><h:message for="thumbnailUpload"/></label>
                                     </div>
-                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                    <div class="form-group col-lg-12 h5">
                                         <div class="col-lg-9">
                                             <h:inputTextarea id="serviceDesc" class="form-control" value="#{serviceManagedBean.service.description}"></h:inputTextarea>
                                         </div>
                                         <label class="col-lg-3 control-label validate-error"><h:message for="serviceDesc"/></label>
                                     </div>
-                                    <div class="form-group col-lg-12 col-md-12 h5">
+                                    <div class="form-group col-lg-12  h5">
                                         <div class="col-lg-3 col-md-3 col-sm-3 ">
                                             <h:commandButton class="btn btn-sm btn-success" value="Add the service" action="#{serviceManagedBean.addService()}"></h:commandButton>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 serviceTemplete ">
+                                    <h3 style="margin-left: -10px;">Choose template</h3>
+                                    <div class="row ">
+                                        <a href="javascript:void(0)" id="s1type" class="btn btn-block btn-info smart-margin-bottom-10"></a> 
+                                    </div>
+                                    <div class="row ">
+                                        <a href="#" id="s2type" class="btn btn-block btn-info smart-margin-bottom-10"></a> 
+                                    </div>
+                                    <div class="row ">
+                                        <a href="#" id="s3type" class="btn btn-block btn-info smart-margin-bottom-10"></a> 
+                                    </div>
+                                    <div class="row ">
+                                        <a href="#" id="s4type" class="btn btn-block btn-info smart-margin-bottom-10"></a> 
+                                    </div>
+                                    <div class="row ">
+                                        <a href="#" id="s5type" class="btn btn-block btn-info"></a> 
                                     </div>
                                 </div>
                             </h:form>

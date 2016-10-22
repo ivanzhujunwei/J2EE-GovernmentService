@@ -28,8 +28,8 @@
         <web-resource-collection>
             <web-resource-name>WebResource</web-resource-name>
             <description/>
-            <url-pattern>/faces/includes/*</url-pattern>
-            <!--<url-pattern>/faces/includes/worker/*</url-pattern>-->
+            <url-pattern>/faces/includes/startPage.xhtml</url-pattern>
+            <url-pattern>/faces/includes/worker/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description>Administrator</description>
@@ -42,8 +42,8 @@
         <web-resource-collection>
             <web-resource-name>WebResource</web-resource-name>
             <description/>
-            <url-pattern>/faces/includes/*</url-pattern>
-            <!--<url-pattern>/faces/includes/publicUser/*</url-pattern>-->
+            <url-pattern>/faces/includes/startPage.xhtml</url-pattern>
+            <url-pattern>/faces/includes/publicUser/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description>PublicUser</description>

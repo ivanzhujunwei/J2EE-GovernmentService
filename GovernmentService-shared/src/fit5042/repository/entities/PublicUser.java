@@ -3,12 +3,9 @@
  */
 package fit5042.repository.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -16,11 +13,13 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = PublicUser.GET_ALL_QUERY_NAME, query = "SELECT u FROM PublicUser u"),
+    @NamedQuery(name = PublicUser.GET_ALL_QUERY_NAME, query = "SELECT u FROM PublicUser u "
+            + "WHERE u.isActive = :isActive "),
     @NamedQuery(name = PublicUser.GET_SEARCHED_QUERY, query = "SELECT s FROM PublicUser s "
             + "WHERE s.lastName LIKE :lastname "
             + "AND s.firstName LIKE :firstname "
-            + "AND s.email LIKE :email "),
+            + "AND s.email LIKE :email "
+            + "AND s.isActive = :isActive"),
     @NamedQuery(name = PublicUser.GET_NEW_PUBLICUSER_ID, query = "SELECT MAX(u.id) FROM PublicUser u")})
 public class PublicUser extends SystemUser
 {

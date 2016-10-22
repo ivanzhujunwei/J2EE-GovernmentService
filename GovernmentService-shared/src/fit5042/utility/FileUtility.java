@@ -16,6 +16,7 @@ public class FileUtility
 {
 
     public final static String THUMBNAIL_DIRECTORY = "/Users/zjw/GitHub/J2EE-GovernmentService/GovernmentService-war/web/resources/images/serviceThumbnail/";
+//    public final static String THUMBNAIL_DIRECTORY = "http:///localhost:44043/GovernmentService-war/web/resources/images/serviceThumbnail/";
     // reference: www.youtube.com/watch?v=8KzoSfkMMXM
     /***
      * Get file name from servlet http 

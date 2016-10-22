@@ -270,7 +270,6 @@ public class ServiceManagedBean implements Serializable
 
     /**
      * *
-     * MRAK: Never used
      * Delete a service
      * 
      * @param service
@@ -283,6 +282,10 @@ public class ServiceManagedBean implements Serializable
         if (!file.delete()) {
             return "error";
         }
+        // Delete relvant service uses
+        for(ServiceUse su: serviceUseRepository.getServiceUsesByService(service)){
+            serviceUseRepository.deleteServiceUse(su);
+        } 
         serviceRepository.deleteService(service);
         return "worker_services";
     }
@@ -395,7 +398,6 @@ public class ServiceManagedBean implements Serializable
         }
         try {
             InputStream inputStream = thumbnail.getInputStream();
-//            FileOutputStream outputStream = new FileOutputStream(FileUtility.THUMBNAIL_DIRECTORY + FileUtility.getFileName(thumbnail));
             FileOutputStream outputStream = new FileOutputStream(FileUtility.THUMBNAIL_DIRECTORY + uuid);
             byte[] buffer = new byte[4096];
             int bytesRead = 0;

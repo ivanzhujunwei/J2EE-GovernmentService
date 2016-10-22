@@ -11,78 +11,80 @@
                 <!--<h:link value="Back To Home" outcome="service_detail" />-->
                 <div class="container"> 
                     <!--<div class="row">-->
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <h:form id="searchForm">
-                                <div class="col-lg-12 col-md-12 smart-margin-bottom-30 findAService">
-                                    <h1 class="agent-page-header">
-                                        Find a service  
-                                    </h1>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <h:form id="searchForm">
+                            <div class="col-lg-12 col-md-12 smart-margin-bottom-30 findAService">
+                                <h1 class="agent-page-header">
+                                    Find a service  
+                                </h1>
+                            </div>
+                            <div class="col-lg-12 col-md-12 smart-margin-bottom-30">
+                                <div class="col-lg-12  smart-margin-bottom-10">
+                                    <h:inputText class="form-control"  p:placeholder="Service NO." value="#{serviceManagedBean.searchNO}">
+                                    </h:inputText>
                                 </div>
-                                <div class="col-lg-12 col-md-12 smart-margin-bottom-30">
-                                    <div class="col-lg-12  smart-margin-bottom-10">
-                                        <h:inputText class="form-control"  p:placeholder="Service NO." value="#{serviceManagedBean.searchNO}">
-                                        </h:inputText>
-                                    </div>
-                                    <div class="col-lg-12  smart-margin-bottom-10">
-                                        <h:inputText class="form-control"  p:placeholder="Service Name" value="#{serviceManagedBean.searchName}">
-                                        </h:inputText>
-                                    </div>
-                                    <div class="col-lg-12  smart-margin-bottom-10">
-                                         <h:selectOneMenu class="form-control" style="height:35px" value="#{serviceManagedBean.searchType}">
-                                             <f:selectItem itemLabel="All service type..." />
-                                             <f:selectItems value="#{serviceManagedBean.getAllServiceType()}" />
-                                         </h:selectOneMenu>
-                                    </div>
-                                    <div class="col-lg-12 ">
-                                        <h:inputText class="form-control"  p:placeholder="Service Description" value="#{serviceManagedBean.searchDescription}">
-                                        </h:inputText>
-                                    </div>
+                                <div class="col-lg-12  smart-margin-bottom-10">
+                                    <h:inputText class="form-control"  p:placeholder="Service Name" value="#{serviceManagedBean.searchName}">
+                                    </h:inputText>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="col-lg-6">
-                                        <h:commandLink class="btn btn-block btn-lg btn-success" action="#{serviceManagedBean.getShowAllService}" value="Show all"></h:commandLink>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <h:commandLink class="btn btn-block btn-lg btn-success" action="#{serviceManagedBean.getSearchedServices}" value="Search">
-                                            &nbsp;&nbsp;<i class="fa fa-search"></i>
-                                        </h:commandLink>
-                                    </div>
+                                <div class="col-lg-12  smart-margin-bottom-10">
+                                    <h:selectOneMenu class="form-control" style="height:35px" value="#{serviceManagedBean.searchType}">
+                                        <f:selectItem itemLabel="All service type..." />
+                                        <f:selectItems value="#{serviceManagedBean.getAllServiceType()}" />
+                                    </h:selectOneMenu>
                                 </div>
-                            </h:form>
-                        </div>
-                        <!--START  //Service table with NO and name-->
-                        <div class="col-lg-8 col-md-8 col-sm-8">
-                            <h:form id="MyForm">
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th width="10%"> NO </th>
-                                        <th width="25%"> Thumbnail </th>
-                                        <th width="50%"> Name </th>
-                                        <th width="15%"> Detail </th>
-                                    </tr>
-                                    <!-- For each service in service list... --> 
-                                    <ui:repeat id="Myrepeat" value="#{serviceManagedBean.serviceList}" var="service" varStatus="status"> 
-                                        <tr> 
-                                            <td style="vertical-align: middle">  <h:outputText value="#{service.service_no}" id="serviceNO" />  </td>
-                                            <td style="vertical-align: middle">  
-                                                <h:graphicImage  value="/resources/images/serviceThumbnail/#{service.thumbnail}" 
-                                                           class="img-fluid pull-xs-right" style="height: 50px;width:70px">
-                                                </h:graphicImage> 
-                                            </td>
-                                            <td style="vertical-align: middle"> <h:outputText value="#{service.name}"  /></td>
-                                            <td style="vertical-align: middle">  <h:outputText />&nbsp;&nbsp;
-                                                <h:commandLink action="#{serviceManagedBean.getViewedService(service)}">
-                                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                                </h:commandLink>
-                                            </td>
-                                        </tr> 
-                                    </ui:repeat> 
-
-                                </table>
-                            </h:form>
-                        </div>
-                        <!--END  //Service table with NO and name-->
+                                <div class="col-lg-12 ">
+                                    <h:inputText class="form-control"  p:placeholder="Service Description" value="#{serviceManagedBean.searchDescription}">
+                                    </h:inputText>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <h:commandLink class="btn btn-block btn-lg btn-success" action="#{serviceManagedBean.getShowAllService}" value="Show all"></h:commandLink>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h:commandLink class="btn btn-block btn-lg btn-success" action="#{serviceManagedBean.getSearchedServices}" value="Search">
+                                        &nbsp;&nbsp;<i class="fa fa-search"></i>
+                                    </h:commandLink>
+                                </div>
+                            </div>
+                        </h:form>
                     </div>
+                    <!--START  //Service table with NO and name-->
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <h:form id="MyForm">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th width="10%"> NO </th>
+                                    <th width="25%"> Thumbnail </th>
+                                    <th width="50%"> Name </th>
+                                    <th width="15%"> Detail </th>
+                                </tr>
+                                <!-- For each service in service list... --> 
+                                <ui:repeat id="Myrepeat" value="#{serviceManagedBean.serviceList}" var="service" varStatus="status"> 
+                                    <tr> 
+                                        <td style="vertical-align: middle">  
+                                            <h:outputText value="#{service.service_no}" id="serviceNO" />  
+                                        </td>
+                                        <td style="vertical-align: middle">  
+                                            <h:graphicImage  value="/resources/images/serviceThumbnail/#{service.thumbnail}" 
+                                                             class="img-fluid pull-xs-right" style="height: 50px;width:70px">
+                                            </h:graphicImage> 
+                                        </td>
+                                        <td style="vertical-align: middle"> <h:outputText value="#{service.name}"  /></td>
+                                        <td style="vertical-align: middle">  <h:outputText />&nbsp;&nbsp;
+                                            <h:commandLink action="#{serviceManagedBean.getViewedService(service)}">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            </h:commandLink>
+                                        </td>
+                                    </tr> 
+                                </ui:repeat> 
+
+                            </table>
+                        </h:form>
+                    </div>
+                    <!--END  //Service table with NO and name-->
+                </div>
                 <!--</div>--> 
             </ui:define> 
 

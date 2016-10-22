@@ -10,8 +10,6 @@ import fit5042.repository.ServiceUseRepository;
 import fit5042.repository.entities.PublicUser;
 import fit5042.repository.entities.ServiceUse;
 import fit5042.utility.Constant;
-import fit5042.utility.Validate;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -21,8 +19,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -60,6 +56,9 @@ public class PublicUserManagedBean
 
     // The public user the worker is managing
     private PublicUser user;
+    
+    // Search active and inactive public user
+    public String activeSelect;
 
     public PublicUserManagedBean()
     {
@@ -69,6 +68,7 @@ public class PublicUserManagedBean
         searchLastName = "";
         searchFirstName = "";
         searchEmail = "";
+        activeSelect = "1";
     }
 
     
@@ -80,28 +80,28 @@ public class PublicUserManagedBean
      * @param password
      * @return true if userName and password are both correct
      */
-    public String login() throws IOException
-    {
-        // THIS IS AJAX HERE, NEED VIEWSCOPE 
-        if (Validate.isEmpty(userName)) {
-            setLoginResponse("ddd");
-            return "login";
-        }
-        for (PublicUser pu : publicUserRepository.getAllPublicUser()) {
-            if (userName.equals(pu.getEmail()) && password.equals(pu.getPassword())) {
-                // Load user's data 
-                this.loginResponse = "";
-                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-                context.redirect(context.getRequestContextPath() + "/faces/publicUser/index.xhtml");
-            }
-        }
-        setLoginResponse("Login failed");
-        return "login";
-    }
+//    public String login() throws IOException
+//    {
+//        // THIS IS AJAX HERE, NEED VIEWSCOPE 
+//        if (Validate.isEmpty(userName)) {
+//            setLoginResponse("ddd");
+//            return "login";
+//        }
+//        for (PublicUser pu : publicUserRepository.getAllPublicUser()) {
+//            if (userName.equals(pu.getEmail()) && password.equals(pu.getPassword())) {
+//                // Load user's data 
+//                this.loginResponse = "";
+//                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+//                context.redirect(context.getRequestContextPath() + "/faces/publicUser/index.xhtml");
+//            }
+//        }
+//        setLoginResponse("Login failed");
+//        return "login";
+//    }
     
-    public String loginJASS(){
-        return "worker/worker_publicUsers";
-    }
+//    public String loginJASS(){
+//        return "worker/worker_publicUsers";
+//    }
 
     /**
      * *
@@ -120,6 +120,7 @@ public class PublicUserManagedBean
     public void getShowAllPublicUser()
     {
         isShowAll = true;
+        activeSelect = "1";
     }
 
     /**
@@ -135,7 +136,8 @@ public class PublicUserManagedBean
         if (isShowAll) {
             users = getPublicUserList();
         } else {
-            users = publicUserRepository.getSearchPublicUserCombined(searchID, searchLastName, searchFirstName, searchEmail);
+            boolean isActive = activeSelect.equals("1");
+            users = publicUserRepository.getSearchPublicUserCombined(searchID, searchLastName, searchFirstName, searchEmail, isActive);
         }
         return users;
     }
@@ -248,7 +250,26 @@ public class PublicUserManagedBean
      * @return 
      */
     public String deleteUser(PublicUser p){
+        // delete all his/her service use records
+        for (ServiceUse su :serviceUseRepository.getServiceUseByUser(p)){
+            serviceUseRepository.deleteServiceUse(su);
+        }
+        // delete the public user
         publicUserRepository.deletePublicUser(p);
+        return "worker_publicUsers";
+    }
+    
+    public String activePublicUser(PublicUser p){
+        p.setIsActive(true);
+        publicUserRepository.updatePublicUser(p);
+        return "worker_publicUsers";
+    }
+    
+    public String inactivePublicUser(PublicUser p){
+        // set service status
+        p.setIsActive(false);
+        // status of related service use remain
+        publicUserRepository.updatePublicUser(p);
         return "worker_publicUsers";
     }
 
@@ -256,7 +277,8 @@ public class PublicUserManagedBean
      * Reset user's password
      */
     public void resetPassword(){
-        this.user.setPassword(Constant.DEFAULT_PSD);
+        this.user.setPassword(SHA(Constant.DEFAULT_PSD));
+        publicUserRepository.updatePublicUser(user);
     }
     
     
@@ -381,6 +403,16 @@ public class PublicUserManagedBean
     public void setUser(PublicUser user)
     {
         this.user = user;
+    }
+
+    public String getActiveSelect()
+    {
+        return activeSelect;
+    }
+
+    public void setActiveSelect(String activeSelect)
+    {
+        this.activeSelect = activeSelect;
     }
 
 }

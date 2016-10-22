@@ -24,9 +24,10 @@ public interface PublicUserRepository
      * @param lastName user's last name 
      * @param firstName user's first name
      * @param email user's email
+     * @param isActive this public user is active or inactive
      * @return 
      */
-    public List<PublicUser> getSearchPublicUserCombined(String id, String lastName, String firstName, String email);
+    public List<PublicUser> getSearchPublicUserCombined(String id, String lastName, String firstName, String email, boolean isActive);
     
     /***
      * Search public user by user id

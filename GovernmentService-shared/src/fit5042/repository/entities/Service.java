@@ -7,8 +7,6 @@
 package fit5042.repository.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -52,28 +49,26 @@ public class Service implements Serializable{
     @Column(name = "thumbnail")
     protected String thumbnail;
     @Column(name = "description")
-    @Size(min=0, max=200)
+    @Size(min=0, max=500)
     protected String description;
     @Column( name = "isactive")
     protected boolean isActive;
-    @OneToMany
-    private List<ServiceUse> serviceUseList;
 
     public Service()
     {
         isActive = true;
-        serviceUseList = new ArrayList<>();
     }
     
-//    public Service(int no, String name, String type, String thumbnail, String description){
-//        this.service_no = no;
-//        this.name = name;
-//        this.type = type;
-//        this.thumbnail = thumbnail;
-//        this.description = description;
-//        serviceUseList = new ArrayList<>();
-//        isActive = true;
-//    }
+    /***
+     * Service constructor
+     * @param type Service type
+     * @param description  Service description
+     */
+    public Service(String type, String description){
+        this.type = type;
+        this.description = description;
+        isActive = true;
+    }
     
     public String getName()
     {
@@ -123,16 +118,6 @@ public class Service implements Serializable{
     public void setDescription(String description)
     {
         this.description = description;
-    }
-
-    public List<ServiceUse> getServiceUseList()
-    {
-        return serviceUseList;
-    }
-
-    public void setServiceUseList(List<ServiceUse> serviceUseList)
-    {
-        this.serviceUseList = serviceUseList;
     }
 
     public boolean isIsActive()

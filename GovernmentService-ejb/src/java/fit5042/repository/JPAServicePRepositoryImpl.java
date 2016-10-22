@@ -96,6 +96,9 @@ public class JPAServicePRepositoryImpl implements ServiceRepository
         List<Service> services = new ArrayList<>();
         // Control service no is not null
         if (!Validate.isEmpty(no)) {
+            if(!Validate.isDigit(no)){
+                return services;
+            }
             int service_no = Integer.parseInt(no);
             Service s = searchServiceByNo(service_no);
             if (s != null) {

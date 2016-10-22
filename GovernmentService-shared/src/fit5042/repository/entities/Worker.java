@@ -15,8 +15,12 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = Worker.GET_ALL_Worker, query = "SELECT s FROM Worker s"),
-    @NamedQuery(name = Worker.GET_ASSIGNED_WORKERID, query = 
-            "SELECT COUNT(w.governmentWorker) from ServiceUse w GROUP BY w.governmentWorker ORDER BY COUNT(w.governmentWorker) asc")
+    @NamedQuery(name = Worker.GET_ASSIGNED_WORKERID, query
+//            = " SELECT COUNT(wo.id),wo.id,wo.LASTNAME from worker wo "
+//            + " left join ServiceUse s   on wo.id = s.MANAGED_BY "
+//            + " GROUPBY wo.id,wo.LASTNAME ORDER BY COUNT(wo.id) asc"
+              =  "SELECT COUNT(w.governmentWorker) from ServiceUse w GROUP BY w.governmentWorker ORDER BY COUNT(w.governmentWorker) asc"
+    )
 })
 public class Worker extends SystemUser
 {

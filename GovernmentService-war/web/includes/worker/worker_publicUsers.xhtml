@@ -18,6 +18,7 @@
                                         User management  
                                     </h1>
                                 </div>
+                                <h:outputText id="activeOrnotId" class="hidden" value="#{publicUserBean.activeSelect}"></h:outputText>
                                 <div class="col-lg-12 col-md-12 smart-margin-bottom-30">
                                     <div class="col-lg-12  smart-margin-bottom-10">
                                         <h:inputText class="form-control"  p:placeholder="ID Number." value="#{publicUserBean.searchID}">
@@ -31,9 +32,15 @@
                                         <h:inputText class="form-control"  p:placeholder="First name" value="#{publicUserBean.searchFirstName}">
                                         </h:inputText>
                                     </div>
-                                    <div class="col-lg-12 ">
+                                    <div class="col-lg-12 smart-margin-bottom-10">
                                         <h:inputText class="form-control"  p:placeholder="Email" value="#{publicUserBean.searchEmail}">
                                         </h:inputText>
+                                    </div>
+                                    <div class="col-lg-12 ">
+                                        <h:selectOneMenu class="form-control" style="height:35px" value="#{publicUserBean.activeSelect}">
+                                            <f:selectItem itemValue="1" itemLabel="Active public users" />
+                                            <f:selectItem itemValue="0" itemLabel="Inactive public users" />
+                                        </h:selectOneMenu>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -66,8 +73,11 @@
                                         <th width="15%"> ID </th>
                                         <th width="20%"> Last Name </th>
                                         <th width="20%"> First Name </th>
-                                        <th width="30%"> Email </th>
-                                        <th width="15%"> Actions </th>
+                                        <th width="20%"> Email </th>
+                                        <th width="10%"> Actions </th>
+                                        <th width="3%">  </th>
+                                        <th width="3%">  </th>
+                                        <th width="3%">  </th>
                                     </tr>
                                     <!-- For each service in service list... --> 
                                     <ui:repeat id="Myrepeat" value="#{publicUserBean.allPublicUsers}" var="p" varStatus="status"> 
@@ -83,8 +93,30 @@
                                                 <h:commandLink action="#{publicUserBean.getUpdatingUser(p)}">
                                                     <i class="fa fa-pencil"></i>
                                                 </h:commandLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <h:commandLink action="#{publicUserBean.inactivePublicUser(p)}"
+                                                               onclick="if (!confirm('Really inactivate this public user?')) {
+                                                                           return false;
+                                                                       }
+                                                                       ;
+                                                                       return true;">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </h:commandLink>
+                                            </td>
+                                            <td>
+                                                <h:commandLink action="#{publicUserBean.activePublicUser(p)}"
+                                                               onclick="if (!confirm('Really activate this public user?')) {
+                                                                           return false;
+                                                                       }
+                                                                       ;
+                                                                       return true;">
+                                                    <i class="fa fa-undo" aria-hidden="true"></i>
+                                                </h:commandLink>
+                                            </td>
+                                            <td>
                                                 <h:commandLink action="#{publicUserBean.deleteUser(p)}"
-                                                               onclick="if (!confirm('Really delete this user?')) {
+                                                               onclick="if (!confirm('All the service use records will be removed, really delete this public user?')) {
                                                                            return false;
                                                                        }
                                                                        ;
@@ -101,6 +133,18 @@
                         <!--END  //Service table with NO and name-->
                     </div>
                 </div> 
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        var activeOrNot = $("#searchForm\\:activeOrnotId").text();
+                        if (activeOrNot === "0") {
+                            $("tr").css("color", "grey");
+                            $("td:nth-child(6)").hide();
+                        }else {
+                            $("td:nth-child(7)").hide();
+                            $("td:nth-child(8)").hide();
+                        }
+                    });
+                </script>
             </ui:define> 
 
         </ui:composition>

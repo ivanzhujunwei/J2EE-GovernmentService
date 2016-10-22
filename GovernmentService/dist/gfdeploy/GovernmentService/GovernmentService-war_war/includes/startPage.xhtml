@@ -5,14 +5,18 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"      
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <head>
         <h:outputScript name="js/jquery-3.1.1.js"></h:outputScript>
         <script type="text/javascript">
             $('#user-info\\:username').ready(function () {
 //              var name = $(document.getElementById("user-info:username")).val();
                 var name = $("#user-info\\:username").val();
+                // JASS security occurs before the redirect
                 // Have to do the dealy, otherwise, once the application start up, the page redirec will be triggered
                 window.setTimeout(function () {
                     $("#user-info\\:usernameBtn").click();
@@ -54,6 +58,7 @@ and open the template in the editor.
             <h:form id="user-info">
                 <h:commandLink id="usernameBtn" action="#{loginBean.redirect}">
                 </h:commandLink>
+                <h:commandLink action="#{serviceManagedBean.activeService(service)}"></h:commandLink>
             </h:form>
             <div class="col-lg-12">
                 <div class="col-lg-4"></div>
