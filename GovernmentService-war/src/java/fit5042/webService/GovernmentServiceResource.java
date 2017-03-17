@@ -56,13 +56,11 @@ public class GovernmentServiceResource
             sb.append("},");
         }
         String json = sb.toString();
-        System.out.println("----------"+json);
         json = json.substring(0, json.length()-1);
         json = json +  "}";
 //            sb.append("{\"insurance\":{\"type\":\"insurance\",\"description\":\"insurance desc\"},\""
 //                    + ""
 //                    + "child care\":{\"type\":\"child care\",\"description\":\"child care desc\"}}");
-        System.out.println("----------"+json);
 //        {
 //	"insurance":
 //				{

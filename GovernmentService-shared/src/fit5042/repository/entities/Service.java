@@ -49,7 +49,7 @@ public class Service implements Serializable{
     @Column(name = "thumbnail")
     protected String thumbnail;
     @Column(name = "description")
-    @Size(min=0, max=500)
+    @Size(min=0, max=255)
     protected String description;
     @Column( name = "isactive")
     protected boolean isActive;

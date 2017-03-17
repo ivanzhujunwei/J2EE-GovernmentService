@@ -6,7 +6,6 @@
 package fit5042.repository;
 
 import fit5042.repository.entities.PublicUser;
-import fit5042.repository.entities.Service;
 import fit5042.utility.Validate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * Operations for adding, deleting, updating and searching public user  
  * @author Ivan Zhu <ivanzhujunwei@gmail.com>
  */
 @Stateless

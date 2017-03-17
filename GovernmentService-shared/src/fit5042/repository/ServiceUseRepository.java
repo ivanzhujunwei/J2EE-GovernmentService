@@ -20,7 +20,7 @@ public interface ServiceUseRepository
 {
 
     /***
-     * 
+     * Delete service use
      * @param su 
      */
     public void deleteServiceUse(ServiceUse su);
